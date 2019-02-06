@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+
+{% block title %}User Recommendations: {{ ml_user.user_id }}{% endblock %}
+
+{% block nav %}
+    <div class="nav-collapse collapse">
+        <ul class="nav">
+            <li class=""><a href="/">Home</a></li>
+            <li class="active"><a href=".">UserPage</a></li>
+            <li class=""><a href="./browse">Browse</a></li>
+            {% if request.user.is_superuser %}
+                <li class=""><a href="/admin">Admin</a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+    </div><!--/.nav-collapse -->
+{% endblock %}
+
+{% block content %}
+    <!-- Main hero unit for a primary marketing message or call to action -->
+
+    <div class="row">
+        <h2>Demographics for User: {{ ml_user.user_id }}</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Occupation</th>
+                <th>Zip Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ ml_user.age }}</td>
+                <td>{{ ml_user.gender }}</td>
+                <td>{{ ml_user.occupation }}</td>
+                <td>{{ ml_user.zip_code }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row"><h2>Recommendations:</h2></div>
+
+    {% for movie in recommendations %}
+        {% if forloop.first %}<div class="row">{% endif %}
+    <div class="span3">
+        <a href="/user/{{ ml_user.user_id }}/movie/{{ movie.movie_id }}" target="_blank">
+            <h4>{{ movie }}</h4>
+            <img src="/static/img/{{ movie.poster.filename }}" width="150">
+        </a>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+    {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+
+    <hr>
+
+    <div class="row">
+        <h2>Ratings by: {{ ml_user.user_id }}</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Rating</th>
+                <th>Timestamp</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for review in reviews %}
+                <tr>
+                    <td>{{ review.item_id }}</td>
+                    <td>{{ review.rating }}</td>
+                    <td>{{ review.timestamp }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

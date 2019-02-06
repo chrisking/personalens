@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+
+{% block title %}Welcome to Personalens!{% endblock %}
+
+{% block nav %}
+    <div class="nav-collapse collapse">
+        <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            {% if request.user.is_superuser %}
+                <li class=""><a href="/admin">Admin</a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+    </div><!--/.nav-collapse -->
+{% endblock %}
+
+
+
+{% block content %}
+    <!-- Main hero unit for a primary marketing message or call to action -->
+    <div class="hero-unit">
+        <h1>Welcome to Personalens!</h1>
+        <p>This project uses the data of the Movielens dataset and Amazon Personalize to generate movie recommendations for users.</p>
+        <p><a href="#TODO_LINK_TO_GITHUB" class="btn btn-primary btn-large">Deploy Yourself: &raquo;</a></p>
+    </div>
+
+    <div class="row"><h2>Users</h2></div>
+    <p>Below is the list of all users and how many movies they have reviewed, click a user to see their recommendations.</p>
+
+    <table class="table">
+        <thead>
+            <th>User ID</th>
+            <th>Number of Reviews</th>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td><a href="/user/{{ user }}">{{ user }}</a></td>
+                <td>{{ user.reviews }}</td>
+            </tr>
+            {%  endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+{% endblock %}

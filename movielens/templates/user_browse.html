@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block title %}Browsing for User: {{ ml_user.user_id }}{% endblock %}
+
+{% block nav %}
+    <div class="nav-collapse collapse">
+        <ul class="nav">
+            <li class=""><a href="/">Home</a></li>
+            <li class=""><a href="/user/{{ ml_user.user_id }}">UserPage</a></li>
+            <li class="active"><a href="">Browse</a></li>
+            {% if request.user.is_superuser %}
+                <li class=""><a href="/admin">Admin</a></li>
+            {% else %}
+            {% endif %}
+        </ul>
+    </div><!--/.nav-collapse -->
+{% endblock %}
+
+{% block content %}
+    <!-- Main hero unit for a primary marketing message or call to action -->
+
+
+    <div class="row"><h2>Browse Random for User: {{ ml_user.user_id }}</h2></div>
+    <p>Below are a collection of random movies, if a session ID is defined for this user in the admin panel, then clicks will register as stream events.
+    These stream events will update the recommendations on the user's regular page.</p>
+    {% for movie in movies %}
+        {% if forloop.first %}<div class="row">{% endif %}
+    <div class="span3">
+        <a href="/user/{{ ml_user.user_id }}/movie/{{ movie.movie_id }}" target="_blank">
+            <h4>{{ movie }}</h4>
+            <img src="/static/img/{{ movie.poster.filename }}" width="150">
+        </a>
+    </div>
+    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+    {% if forloop.last %}</div>{% endif %}
+    {% endfor %}
+
+    <hr>
+
+{% endblock %}

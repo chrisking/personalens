@@ -1,0 +1,3287 @@
+{
+  "version":"2.0",
+  "metadata":{
+    "apiVersion":"2018-05-22",
+    "endpointPrefix":"personalize",
+    "jsonVersion":"1.1",
+    "protocol":"json",
+    "serviceFullName":"Amazon Personalize",
+    "serviceId":"Personalize",
+    "signatureVersion":"v4",
+    "signingName":"personalize",
+    "targetPrefix":"AWSConciergeControlService",
+    "uid":"personalize-2018-05-22"
+  },
+  "operations":{
+    "CreateAlgorithm":{
+      "name":"CreateAlgorithm",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateAlgorithmRequest"},
+      "output":{"shape":"CreateAlgorithmResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a custom algorithm for use with the API.</p>"
+    },
+    "CreateCampaign":{
+      "name":"CreateCampaign",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateCampaignRequest"},
+      "output":{"shape":"CreateCampaignResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a campaign by deploying a solution. When a client sends a request to Amazon Personalize, a campaign is specified in the request.</p> <p>You can specify a specific solution version to be used for the campaign. When a specific version is not specified, Amazon Personalize uses the most recent solution version.</p> <p>To have the campaign automatically updated every time the soluton is updated, set the <code>updateMode</code> to <code>AUTO</code>. When the <code>updateMode</code> is set to <code>MANUAL</code>, you must call for the campaign to use an updated solution.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the campaign status, call or .</p> <note> <p>You must wait until the <code>status</code> of the campaign is <code>ACTIVE</code> before asking the campaign for recommendations.</p> </note> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "CreateDataset":{
+      "name":"CreateDataset",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateDatasetRequest"},
+      "output":{"shape":"CreateDatasetResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a dataset and adds it to the specified dataset group. There are three types of datasets:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul> <p>Each dataset type has an associated schema with required field types. Only the <code>INTERACTIONS</code> dataset is required to train a model (create a solution).</p> <p>To create a dataset group, call .</p> <p class=\"title\"> <b>APIs that require a dataset ARN in the request</b> </p> <ul> <li> <p/> </li> </ul> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "CreateDatasetGroup":{
+      "name":"CreateDatasetGroup",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateDatasetGroupRequest"},
+      "output":{"shape":"CreateDatasetGroupResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates an empty dataset group. A dataset group contains related datasets that supply data for training a model. A dataset group can contain at most three datasets, one for each type of dataset:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul> <p>To train a model (create a solution), a dataset group containing a dataset of type <code>INTERACTIONS</code> is required. You call to add a dataset to the group.</p> <p>A dataset group can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the status of the dataset group, call .</p> <note> <p>You must wait until the <code>status</code> of the dataset group is <code>ACTIVE</code> before adding a dataset to the group.</p> </note> <p>You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group.</p> <p class=\"title\"> <b>APIs that require a dataset group ARN in the request</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>"
+    },
+    "CreateDatasetImportJob":{
+      "name":"CreateDatasetImportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateDatasetImportJobRequest"},
+      "output":{"shape":"CreateDatasetImportJobResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a job that imports training data from your data source (an Amazon S3 bucket) to an Amazon Personalize dataset. To allow Amazon Personalize to import the training data, you must specify an AWS Identity and Access Management (IAM) role that has permission to read from the data source.</p> <p>This operation occurs in two steps. First, the import job itself is created. Second, upon successful creation, a run of the import job is initiated.</p> <p>A dataset import job can be in one of the following create states:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul> <p>To get the create status of the import job, call and provide the dataset import job ARN. Once the create status shows as <code>ACTIVE</code>, the <code>DescribeDatasetImportJob</code> response includes the <code>latestDatasetImportJobRun</code> object and its run status.</p> <p>The dataset import is complete when the run status of <code>latestDatasetImportJobRun</code> shows as <code>ACTIVE</code>. If the run status shows as <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why the job failed. You can check just the run status by calling .</p> <note> <p>Importing takes time. You must wait until the <code>status</code> of <code>latestDatasetImportJobRun</code> shows as <code>ACTIVE</code> before training a model using the dataset.</p> </note> <p>When a <code>datasetImportJobConfig</code> is specified, a new run of the import job is repeated at the frequency defined by its <code>importJobSchedule</code> key. You specify the frequency using a cron expression. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>.</p> <p>When <code>datasetImportJobConfig</code> is not specified, you must call to create a new run. Each run uses a snapshot of the source data at the time of the call and is given a unique Amazon Resource Name (ARN).</p> <important> <p>The dataset import job replaces any previous data in the dataset.</p> </important> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
+    },
+    "CreateEventTracker":{
+      "name":"CreateEventTracker",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateEventTrackerRequest"},
+      "output":{"shape":"CreateEventTrackerResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates an event tracker to send user interaction data to the <code>INTERACTIONS</code> dataset of the specified dataset group.</p> <p>You must specify an AWS Identity and Access Management (IAM) role that has <i>CloudWatchFullAccess</i> permission. The IAM role allows Amazon CloudWatch to calculate the clickthrough rate for the events.</p> <p>When you send event data using the API, you include your tracking ID. The tracking ID identifies the customer and authorizes the client to send the data.</p> <p>The event tracker can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul> <p>To get the status of the event tracker, call .</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "CreateFeatureExportJob":{
+      "name":"CreateFeatureExportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateFeatureExportJobRequest"},
+      "output":{"shape":"CreateFeatureExportJobResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Featurizes training data using the information from the specified feature transformation object. The results are stored in an Amazon S3 bucket.</p>"
+    },
+    "CreateFeatureTransformation":{
+      "name":"CreateFeatureTransformation",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateFeatureTransformationRequest"},
+      "output":{"shape":"CreateFeatureTransformationResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a feature transformation object that contains information on how to featurize the raw input data.</p>"
+    },
+    "CreateRecipe":{
+      "name":"CreateRecipe",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateRecipeRequest"},
+      "output":{"shape":"CreateRecipeResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a recipe used to train a solution. Call the and APIs to obtain the request parameters.</p> <p>To get a listing of the recipe's properties, call the API. To update the recipe, call the API.</p>"
+    },
+    "CreateSchema":{
+      "name":"CreateSchema",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateSchemaRequest"},
+      "output":{"shape":"CreateSchemaResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates an Amazon Personalize schema from the specified schema string. The schema you create must be in AVRO JSON format.</p> <p>Amazon Personalize recognizes three schema variants. Each schema is associated with a dataset type and has a set of required field and keywords. You specify a schema when you call .</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "CreateSolution":{
+      "name":"CreateSolution",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"CreateSolutionRequest"},
+      "output":{"shape":"CreateSolutionResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceAlreadyExistsException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"LimitExceededException"}
+      ],
+      "documentation":"<p>Creates a solution by training a model. After creating a solution, you check its accuracy by calling . When you are satisfied with the solution, you deploy it using . The campaign provides recommendations to a client through the API.</p> <p>To train a model, Amazon Personalize requires training data and a recipe. The training data comes from the dataset group that you provide in the request. A recipe specifies the training algorithm and a feature transformation. You can specify one of the predefined recipes provided by Amazon Personalize or provide a custom recipe. Alternatively, you can specify <code>performAutoML</code> and Amazon Personalize will analyze your data and select the optimum recipe for you.</p> <p>You must request the minimum provisioned number of recommendations (transactions) per second that Amazon Personalize will support by using the <code>minProvisionedTPS</code> parameter.</p> <p>A solution can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the solution status, call .</p> <p>Once the create <code>status</code> shows as CREATE IN_PROGRESS, the <code>DescribeSolution</code> response includes the <code>latestSolutionVersion</code> object and its training <code>status</code>.</p> <p>Training is complete when the training <code>status</code> of the <code>latestSolutionVersion</code> shows as ACTIVE. Then you are ready to create a campaign by deploying the solution.</p> <note> <p>Before deploying the solution as a campaign, the following conditions must be met:</p> <ul> <li> <p>The create <code>status</code> of the solution is <code>ACTIVE</code>.</p> </li> <li> <p>At least one version of the solution has attained a training <code>status</code> of <code>ACTIVE</code>.</p> </li> </ul> </note> <p>When you create a campaign, you specify the <code>solutionArn</code> and, optionally, the <code>solutionVersionArn</code>. Include <code>solutionVersionArn</code> when you want the campaign to be based on a specific trained solution. When you omit <code>solutionVersionArn</code>, Amazon Personalize uses the most recent successful solution version.</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
+    },
+    "DeleteAlgorithm":{
+      "name":"DeleteAlgorithm",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteAlgorithmRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given algorithm.</p>",
+      "idempotent":true
+    },
+    "DeleteCampaign":{
+      "name":"DeleteCampaign",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteCampaignRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Removes a campaign by deleting the solution deployment. The solutions that are part of the campaign are not deleted and can be redeployed when needed. A deleted campaign can no longer be specified in a request. For more information on campaigns, see .</p>",
+      "idempotent":true
+    },
+    "DeleteDataset":{
+      "name":"DeleteDataset",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteDatasetRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given dataset. For more information on datasets, see .</p>",
+      "idempotent":true
+    },
+    "DeleteDatasetGroup":{
+      "name":"DeleteDatasetGroup",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteDatasetGroupRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given dataset group. Before you delete a dataset group, you must delete all datasets belonging to the group. To find all datasets that belong to the group, call and provide the Amazon Resource Name (ARN) for the dataset group you want to delete.</p> <p>When you try to delete a non-empty dataset group, an <code>InvalidInputException</code> occurs, which lists the datasets that need to be deleted. If you try to delete a dataset group immediately after deleting the group's datasets, you might still get the <code>InvalidInputException</code> error. It takes a moment to delete the datasets. If you do get the error, try the call again. For more information on dataset groups, see .</p>",
+      "idempotent":true
+    },
+    "DeleteDatasetImportJob":{
+      "name":"DeleteDatasetImportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteDatasetImportJobRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the dataset import job. Your campaigns use a cached copy of the data and continue to function. These cached copies are deleted only when you call . For more information on dataset import jobs, see .</p>",
+      "idempotent":true
+    },
+    "DeleteEventTracker":{
+      "name":"DeleteEventTracker",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteEventTrackerRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given event tracker. Does not delete the clickstream dataset from the associated dataset group. For more information on event trackers, see .</p>",
+      "idempotent":true
+    },
+    "DeleteFeatureTransformation":{
+      "name":"DeleteFeatureTransformation",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteFeatureTransformationRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given feature transformation.</p>",
+      "idempotent":true
+    },
+    "DeleteRecipe":{
+      "name":"DeleteRecipe",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteRecipeRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given recipe.</p>",
+      "idempotent":true
+    },
+    "DeleteSchema":{
+      "name":"DeleteSchema",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteSchemaRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes the given schema. For more information on schemas, see .</p>",
+      "idempotent":true
+    },
+    "DeleteSolution":{
+      "name":"DeleteSolution",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DeleteSolutionRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Deletes a solution. A solution cannot be deleted if it is part of a campaign. To determine what campaigns are using the solution, call and supply the Amazon Resource Name (ARN) of the solution. For more information on solutions, see .</p>",
+      "idempotent":true
+    },
+    "DescribeAlgorithm":{
+      "name":"DescribeAlgorithm",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeAlgorithmRequest"},
+      "output":{"shape":"DescribeAlgorithmResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given algorithm.</p>",
+      "idempotent":true
+    },
+    "DescribeCampaign":{
+      "name":"DescribeCampaign",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeCampaignRequest"},
+      "output":{"shape":"DescribeCampaignResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given campaign, including its status.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why. For more information on campaigns, see .</p>",
+      "idempotent":true
+    },
+    "DescribeCampaignUpdate":{
+      "name":"DescribeCampaignUpdate",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeCampaignUpdateRequest"},
+      "output":{"shape":"DescribeCampaignUpdateResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given updated campaign.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, <code>failureReason</code> gives the reason why. For more information on campaigns, see .</p>",
+      "idempotent":true
+    },
+    "DescribeDataset":{
+      "name":"DescribeDataset",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeDatasetRequest"},
+      "output":{"shape":"DescribeDatasetResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given dataset. For more information on datasets, see .</p>",
+      "idempotent":true
+    },
+    "DescribeDatasetGroup":{
+      "name":"DescribeDatasetGroup",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeDatasetGroupRequest"},
+      "output":{"shape":"DescribeDatasetGroupResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given dataset group. For more information on dataset groups, see .</p>",
+      "idempotent":true
+    },
+    "DescribeDatasetImportJob":{
+      "name":"DescribeDatasetImportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeDatasetImportJobRequest"},
+      "output":{"shape":"DescribeDatasetImportJobResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the dataset import job created by .</p> <p>Call this API to determine the import job's create status. When the import job is successfully created, the properties and run status of the most current run of the import job are also described. To get information about a specific run, call .</p>",
+      "idempotent":true
+    },
+    "DescribeDatasetImportJobRun":{
+      "name":"DescribeDatasetImportJobRun",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeDatasetImportJobRunRequest"},
+      "output":{"shape":"DescribeDatasetImportJobRunResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes a specific run of a dataset import job.</p> <p>A new run of a dataset import job is automatically started at a frequency defined by the dataset import job or manually with a call to . Each run uses a snapshot of the source data at the time of the call and is given a unique Amazon Resource Name (ARN). For more information on dataset import jobs, see .</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "DescribeEventTracker":{
+      "name":"DescribeEventTracker",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeEventTrackerRequest"},
+      "output":{"shape":"DescribeEventTrackerResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes an event tracker.</p> <p>Call this API to ensure that the <code>status</code> of your event tracker is <code>ACTIVE</code>. For more information on event trackers, see .</p>",
+      "idempotent":true
+    },
+    "DescribeFeatureExportJob":{
+      "name":"DescribeFeatureExportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeFeatureExportJobRequest"},
+      "output":{"shape":"DescribeFeatureExportJobResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the feature export job.</p>",
+      "idempotent":true
+    },
+    "DescribeFeatureTransformation":{
+      "name":"DescribeFeatureTransformation",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeFeatureTransformationRequest"},
+      "output":{"shape":"DescribeFeatureTransformationResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes the given feature transformation.</p>",
+      "idempotent":true
+    },
+    "DescribeRecipe":{
+      "name":"DescribeRecipe",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeRecipeRequest"},
+      "output":{"shape":"DescribeRecipeResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes a recipe created by the API.</p> <p>A recipe contains an algorithm that trains a model, hyperparameters that govern the training, and feature transformation information for modifying the input data before training.</p> <p>Amazon Personalize provides a set of predefined recipes. You specify a recipe when you create a solution using the API. <code>API_CreateSolution</code> trains a model using the algorithm in the specified recipe and a training dataset. The solution, when deployed as a campaign, can provide recommendations using the API.</p>",
+      "idempotent":true
+    },
+    "DescribeSchema":{
+      "name":"DescribeSchema",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeSchemaRequest"},
+      "output":{"shape":"DescribeSchemaResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes a schema. For more information on schemas, see .</p>",
+      "idempotent":true
+    },
+    "DescribeSolution":{
+      "name":"DescribeSolution",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeSolutionRequest"},
+      "output":{"shape":"DescribeSolutionResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes a solution. For more information on solutions, see .</p>",
+      "idempotent":true
+    },
+    "DescribeSolutionVersion":{
+      "name":"DescribeSolutionVersion",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"DescribeSolutionVersionRequest"},
+      "output":{"shape":"DescribeSolutionVersionResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Describes a solution version.</p>",
+      "idempotent":true
+    },
+    "GetMetrics":{
+      "name":"GetMetrics",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"GetMetricsRequest"},
+      "output":{"shape":"GetMetricsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Gets the metrics for the specified solution or solution version. When the solution ARN is specified and the solution version ARN isn't specified, the metrics for the latest solution version are returned.</p>"
+    },
+    "ListCampaigns":{
+      "name":"ListCampaigns",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListCampaignsRequest"},
+      "output":{"shape":"ListCampaignsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns a list of campaigns that use the given solution. When a solution is not specified, all the campaigns associated with the account are listed. The response provides the properties for each campaign, including the Amazon Resource Name (ARN). For more information on campaigns, see .</p>",
+      "idempotent":true
+    },
+    "ListDatasetGroups":{
+      "name":"ListDatasetGroups",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListDatasetGroupsRequest"},
+      "output":{"shape":"ListDatasetGroupsResponse"},
+      "errors":[
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns a list of dataset groups. The response provides the properties for each dataset group, including the Amazon Resource Name (ARN). For more information on dataset groups, see .</p>",
+      "idempotent":true
+    },
+    "ListDatasetImportJobRuns":{
+      "name":"ListDatasetImportJobRuns",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListDatasetImportJobRunsRequest"},
+      "output":{"shape":"ListDatasetImportJobRunsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns a list of import job runs for the given dataset import job. When a dataset import job is not specified, all the dataset import jobs associated with the account are listed. The response provides the properties for each dataset import job run, including the Amazon Resource Name (ARN). A dataset import job can be run on a schedule, or manually using . Each time the import job is run, a new dataset snapshot is created and given its own Amazon Resource Name (ARN). For more information on dataset import jobs, see .</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> </ul>",
+      "idempotent":true
+    },
+    "ListDatasetImportJobs":{
+      "name":"ListDatasetImportJobs",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListDatasetImportJobsRequest"},
+      "output":{"shape":"ListDatasetImportJobsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns a list of dataset import jobs that use the given dataset. When a dataset is not specified, all the dataset import jobs associated with the account are listed. The response provides the properties for each dataset import job, including the Amazon Resource Name (ARN). For more information on dataset import jobs, see . For more information on datasets, see .</p>",
+      "idempotent":true
+    },
+    "ListDatasets":{
+      "name":"ListDatasets",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListDatasetsRequest"},
+      "output":{"shape":"ListDatasetsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns the list of datasets contained in the given dataset group. The response provides the properties for each dataset, including the Amazon Resource Name (ARN). For more information on datasets, see .</p>",
+      "idempotent":true
+    },
+    "ListEventTrackers":{
+      "name":"ListEventTrackers",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListEventTrackersRequest"},
+      "output":{"shape":"ListEventTrackersResponse"},
+      "errors":[
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns the list of event trackers associated with the account. The response provides the properties for each event tracker, including the Amazon Resource Name (ARN) and tracking ID. For more information on event trackers, see .</p>",
+      "idempotent":true
+    },
+    "ListFeatureExportJobs":{
+      "name":"ListFeatureExportJobs",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListFeatureExportJobsRequest"},
+      "output":{"shape":"ListFeatureExportJobsResponse"},
+      "errors":[
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns the list of available feature export jobs. The response provides the properties for each feature export job, including the Amazon Resource Name (ARN).</p>",
+      "idempotent":true
+    },
+    "ListRecipes":{
+      "name":"ListRecipes",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListRecipesRequest"},
+      "output":{"shape":"ListRecipesResponse"},
+      "errors":[
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns the list of available recipes. The response provides the properties for each recipe, including the Amazon Resource Name (ARN).</p>",
+      "idempotent":true
+    },
+    "ListSchemas":{
+      "name":"ListSchemas",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListSchemasRequest"},
+      "output":{"shape":"ListSchemasResponse"},
+      "errors":[
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns the list of schemas associated with the account. The response provides the properties for each schema, including the Amazon Resource Name (ARN). For more information on schemas, see .</p>",
+      "idempotent":true
+    },
+    "ListSolutionVersions":{
+      "name":"ListSolutionVersions",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListSolutionVersionsRequest"},
+      "output":{"shape":"ListSolutionVersionsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Returns a list of solution versions for the given solution. When a solution is not specified, all the solution versions associated with the account are listed. The response provides the properties for each solution version, including the Amazon Resource Name (ARN). For more information on solutions, see .</p>",
+      "idempotent":true
+    },
+    "ListSolutions":{
+      "name":"ListSolutions",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"ListSolutionsRequest"},
+      "output":{"shape":"ListSolutionsResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"InvalidNextTokenException"}
+      ],
+      "documentation":"<p>Returns a list of solutions that use the given dataset group. When a dataset group is not specified, all the solutions associated with the account are listed. The response provides the properties for each solution, including the Amazon Resource Name (ARN). For more information on solutions, see .</p>",
+      "idempotent":true
+    },
+    "RetrainSolution":{
+      "name":"RetrainSolution",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"RetrainSolutionRequest"},
+      "output":{"shape":"RetrainSolutionResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Manually retrains an existing solution. The solution must be in the ACTIVE state. To get the training status, call the API. Each time a solution is successfully trained, a new is created. For more information on solutions, see .</p>"
+    },
+    "UpdateAlgorithm":{
+      "name":"UpdateAlgorithm",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateAlgorithmRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates the given algorithm. Only the algorithm ARN is required.</p>"
+    },
+    "UpdateCampaign":{
+      "name":"UpdateCampaign",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateCampaignRequest"},
+      "output":{"shape":"UpdateCampaignResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates the campaign with the given solution or solution version. For more information on campaigns, see .</p>",
+      "idempotent":true
+    },
+    "UpdateDataset":{
+      "name":"UpdateDataset",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateDatasetRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"},
+        {"shape":"ResourceInUseException"}
+      ],
+      "documentation":"<p>Updates the given dataset to a new schema. For more information on datasets, see .</p>",
+      "idempotent":true
+    },
+    "UpdateDatasetImportJob":{
+      "name":"UpdateDatasetImportJob",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateDatasetImportJobRequest"},
+      "output":{"shape":"UpdateDatasetImportJobResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates the specified dataset import job. Calling this operation can have three effects:</p> <ul> <li> <p>Optionally changes the location of the training data to import.</p> </li> <li> <p>Optionally updates the import job repeat schedule.</p> </li> <li> <p>Starts a new import job.</p> </li> </ul> <p>For more information on dataset import jobs, see .</p> <important> <p>The dataset import job replaces any previous data in the dataset.</p> </important> <p>A new import job cannot be created for a given dataset while another import job for that same dataset is running.</p> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
+    },
+    "UpdateFeatureTransformation":{
+      "name":"UpdateFeatureTransformation",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateFeatureTransformationRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates the default parameters of the given feature transformation.</p>"
+    },
+    "UpdateRecipe":{
+      "name":"UpdateRecipe",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateRecipeRequest"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates a recipe created by the API.</p> <p>To get a listing of the current recipe's properties, call the API.</p>"
+    },
+    "UpdateSolution":{
+      "name":"UpdateSolution",
+      "http":{
+        "method":"POST",
+        "requestUri":"/"
+      },
+      "input":{"shape":"UpdateSolutionRequest"},
+      "output":{"shape":"UpdateSolutionResponse"},
+      "errors":[
+        {"shape":"InvalidInputException"},
+        {"shape":"ResourceNotFoundException"}
+      ],
+      "documentation":"<p>Updates an existing solution to use a different dataset group and/or solution configuration. The solution must be in the ACTIVE state. To get the training status, call the API. This API doesn't trigger retraining of the solution with the updated settings. To retrain the solution, call the API. For more information on solutions, see .</p>"
+    }
+  },
+  "shapes":{
+    "AccountId":{
+      "type":"string",
+      "max":256
+    },
+    "Algorithm":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the algorithm.</p>"
+        },
+        "algorithmImage":{
+          "shape":"AlgorithmImage",
+          "documentation":"<p>The URI of the Docker container for the algorithm image.</p>"
+        },
+        "defaultHyperParameters":{
+          "shape":"HyperParameters",
+          "documentation":"<p>Specifies the default hyperparameters.</p>"
+        },
+        "defaultHyperParameterRanges":{
+          "shape":"DefaultHyperParameterRanges",
+          "documentation":"<p>Specifies the default hyperparameters, their ranges, and whether they are tunable. A tunable hyperparameter can have its value determined during hyperparameter optimization (HPO).</p>"
+        },
+        "defaultResourceConfig":{
+          "shape":"ResourceConfig",
+          "documentation":"<p>Specifies the default maximum number of training jobs and parallel training jobs.</p>"
+        },
+        "trainingInputMode":{
+          "shape":"TrainingInputMode",
+          "documentation":"<p/>"
+        },
+        "roleArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the role.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) that the algorithm was created.</p>"
+        }
+      },
+      "documentation":"<p>A custom algorithm for use with the API.</p>"
+    },
+    "AlgorithmImage":{
+      "type":"structure",
+      "required":["dockerURI"],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the algorithm image.</p>"
+        },
+        "dockerURI":{
+          "shape":"DockerURI",
+          "documentation":"<p>The URI of the Docker container for the algorithm image.</p>"
+        }
+      },
+      "documentation":"<p/>"
+    },
+    "Arn":{
+      "type":"string",
+      "max":256,
+      "pattern":"arn:([a-z\\d-]+):personalize:.*:.*:.+"
+    },
+    "ArnList":{
+      "type":"list",
+      "member":{"shape":"Arn"},
+      "max":100
+    },
+    "AutoMLConfig":{
+      "type":"structure",
+      "members":{
+        "metricName":{
+          "shape":"Name",
+          "documentation":"<p>The metric to optimize.</p>"
+        },
+        "recipeList":{
+          "shape":"ArnList",
+          "documentation":"<p>The list of candidate recipes.</p>"
+        }
+      },
+      "documentation":"<p>When the solution performs AutoML (<code>performAutoML</code> is true), Amazon Personalize determines which recipe from the specified list optimizes the given metric. Amazon Personalize then uses that recipe for the solution.</p>"
+    },
+    "AutoMLResult":{
+      "type":"structure",
+      "members":{
+        "bestRecipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the best recipe.</p>"
+        }
+      },
+      "documentation":"<p>Specifies the recipe that best optimized the specified metric.</p>"
+    },
+    "AvroSchema":{
+      "type":"string",
+      "max":10000
+    },
+    "Campaign":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the campaign.</p>"
+        },
+        "updateMode":{
+          "shape":"UpdateMode",
+          "documentation":"<p>When the mode is AUTO, the campaign is automatically updated every time the solution is updated.</p> <p>When the mode is MANUAL, must be called to update the campaign.</p>"
+        },
+        "campaignArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign. </p>"
+        },
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution.</p>"
+        },
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of a specific version of the solution.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the campaign.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>When a campaign fails, the reason behind the failure.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix format) that the campaign was created.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix format) that the campaign was last updated.</p>"
+        }
+      },
+      "documentation":"<p>Describes a deployed solution, otherwise known as a campaign. For more information on campaigns, see .</p>"
+    },
+    "Campaigns":{
+      "type":"list",
+      "member":{"shape":"Campaign"},
+      "max":100
+    },
+    "CategoricalHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "values":{
+          "shape":"CategoricalValues",
+          "documentation":"<p>A list of the categories for the hyperparameter.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and range of a categorical hyperparameter.</p>"
+    },
+    "CategoricalHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"CategoricalHyperParameterRange"},
+      "max":100
+    },
+    "CategoricalValue":{
+      "type":"string",
+      "max":1000
+    },
+    "CategoricalValues":{
+      "type":"list",
+      "member":{"shape":"CategoricalValue"},
+      "max":100
+    },
+    "ContinuousHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "minValue":{
+          "shape":"ContinuousMinValue",
+          "documentation":"<p>The minimum allowable value for the hyperparameter.</p>"
+        },
+        "maxValue":{
+          "shape":"ContinuousMaxValue",
+          "documentation":"<p>The maximum allowable value for the hyperparameter.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and range of a continuous hyperparameter.</p>"
+    },
+    "ContinuousHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"ContinuousHyperParameterRange"},
+      "max":100
+    },
+    "ContinuousMaxValue":{
+      "type":"double",
+      "min":-1000000
+    },
+    "ContinuousMinValue":{
+      "type":"double",
+      "min":-1000000
+    },
+    "CreateAlgorithmRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "algorithmImage",
+        "defaultHyperParameters",
+        "defaultHyperParameterRanges",
+        "defaultResourceConfig",
+        "trainingInputMode",
+        "roleArn"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the algorithm.</p>"
+        },
+        "algorithmImage":{
+          "shape":"AlgorithmImage",
+          "documentation":"<p>Specifies the URI of the Docker container for the algorithm image.</p>"
+        },
+        "defaultHyperParameters":{
+          "shape":"HyperParameters",
+          "documentation":"<p>A list of hyperparameters and their default values.</p>"
+        },
+        "defaultHyperParameterRanges":{
+          "shape":"DefaultHyperParameterRanges",
+          "documentation":"<p>Specifies the default hyperparameters, their ranges, and whether they are tunable. A tunable hyperparameter can have its value determined during hyperparameter optimization (HPO).</p>"
+        },
+        "defaultResourceConfig":{
+          "shape":"ResourceConfig",
+          "documentation":"<p>Specifies the default maximum number of training jobs and the maximum number of parallel training jobs.</p>"
+        },
+        "trainingInputMode":{
+          "shape":"TrainingInputMode",
+          "documentation":"<p/>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the role.</p>"
+        }
+      }
+    },
+    "CreateAlgorithmResponse":{
+      "type":"structure",
+      "members":{
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the created algorithm.</p>"
+        }
+      }
+    },
+    "CreateCampaignRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "solutionArn"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>A name for the new campaign. The campaign name must be unique within an account.</p>"
+        },
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution to deploy.</p>"
+        },
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of a specific solution version to deploy.</p>"
+        },
+        "updateMode":{
+          "shape":"UpdateMode",
+          "documentation":"<p>When the mode is AUTO, the campaign is automatically updated every time the solution is updated.</p> <p>When the mode is MANUAL, you must call to update the campaign.</p>"
+        }
+      }
+    },
+    "CreateCampaignResponse":{
+      "type":"structure",
+      "members":{
+        "campaignArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign.</p>"
+        }
+      }
+    },
+    "CreateDatasetGroupRequest":{
+      "type":"structure",
+      "required":["name"],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the new dataset group.</p>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The ARN of the IAM role that has permissions to create the dataset group.</p>"
+        },
+        "kmsKeyArn":{
+          "shape":"KmsKeyArn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.</p>"
+        }
+      }
+    },
+    "CreateDatasetGroupResponse":{
+      "type":"structure",
+      "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the new dataset group.</p>"
+        }
+      }
+    },
+    "CreateDatasetImportJobRequest":{
+      "type":"structure",
+      "required":[
+        "jobName",
+        "datasetArn",
+        "dataSource",
+        "roleArn"
+      ],
+      "members":{
+        "jobName":{
+          "shape":"Name",
+          "documentation":"<p>The user supplied name of the dataset import job.</p>"
+        },
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset that receives the imported data.</p>"
+        },
+        "dataSource":{
+          "shape":"DataSource",
+          "documentation":"<p>The Amazon S3 bucket that contains the training data to import.</p>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The ARN of the IAM role that has permissions to read from the Amazon S3 data source.</p>"
+        },
+        "datasetImportJobConfig":{
+          "shape":"DatasetImportJobConfig",
+          "documentation":"<p>The dataset import job configuration properties, including the import update frequency.</p>"
+        }
+      }
+    },
+    "CreateDatasetImportJobResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the dataset import job.</p>"
+        }
+      }
+    },
+    "CreateDatasetRequest":{
+      "type":"structure",
+      "required":[
+        "schemaArn",
+        "datasetGroupArn",
+        "datasetType"
+      ],
+      "members":{
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the schema to associate with the dataset.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that the new dataset is added to.</p>"
+        },
+        "datasetType":{
+          "shape":"DatasetType",
+          "documentation":"<p>The type of dataset.</p> <p>One of the following values:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul>"
+        }
+      }
+    },
+    "CreateDatasetResponse":{
+      "type":"structure",
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset.</p>"
+        }
+      }
+    },
+    "CreateEventTrackerRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "roleArn",
+        "datasetGroupArn"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the event tracker.</p>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The ARN of an IAM role that has <i>CloudWatchFullAccess</i> permission.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that receives the event data.</p>"
+        }
+      }
+    },
+    "CreateEventTrackerResponse":{
+      "type":"structure",
+      "members":{
+        "eventTrackerArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the event tracker.</p>"
+        },
+        "trackingId":{
+          "shape":"TrackingId",
+          "documentation":"<p>The ID of the event tracker. Include this ID in requests to the API.</p>"
+        }
+      }
+    },
+    "CreateFeatureExportJobRequest":{
+      "type":"structure",
+      "required":[
+        "jobName",
+        "featureTransformationArn",
+        "datasetGroupArn",
+        "dataDestination"
+      ],
+      "members":{
+        "jobName":{
+          "shape":"Name",
+          "documentation":"<p>The name for the export job.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the feature transformation object.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group containing the data to featurize.</p>"
+        },
+        "dataDestination":{
+          "shape":"S3Location",
+          "documentation":"<p>The Amazon S3 bucket to store the results.</p>"
+        },
+        "featureTransformationOverrides":{
+          "shape":"FeaturizationParameters",
+          "documentation":"<p>Provides values that override the default values in the feature transformation object.</p>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The ARN of the IAM role that has Amazon S3 permissions.</p>"
+        }
+      }
+    },
+    "CreateFeatureExportJobResponse":{
+      "type":"structure",
+      "members":{
+        "featureExportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the export job.</p>"
+        }
+      }
+    },
+    "CreateFeatureTransformationRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "defaultParameters"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the feature transformation object.</p>"
+        },
+        "defaultParameters":{
+          "shape":"FeaturizationParameters",
+          "documentation":"<p>Specifies the default parameters for feature transformation.</p>"
+        }
+      }
+    },
+    "CreateFeatureTransformationResponse":{
+      "type":"structure",
+      "members":{
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the FeatureTransformation object.</p>"
+        }
+      }
+    },
+    "CreateRecipeRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "algorithmArn",
+        "featureTransformationArn"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the recipe.</p>"
+        },
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm used in the recipe.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the feature transformation object to be used in the recipe.</p>"
+        }
+      }
+    },
+    "CreateRecipeResponse":{
+      "type":"structure",
+      "members":{
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the recipe.</p>"
+        }
+      }
+    },
+    "CreateSchemaRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "schema"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the schema.</p>"
+        },
+        "schema":{
+          "shape":"AvroSchema",
+          "documentation":"<p>A schema in AVRO JSON format.</p>"
+        }
+      }
+    },
+    "CreateSchemaResponse":{
+      "type":"structure",
+      "members":{
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the created schema.</p>"
+        }
+      }
+    },
+    "CreateSolutionRequest":{
+      "type":"structure",
+      "required":[
+        "name",
+        "datasetGroupArn",
+        "minProvisionedTPS"
+      ],
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name for the new solution. All versions of the solution have a reference to this name.</p>"
+        },
+        "performHPO":{
+          "shape":"PerformHPO",
+          "documentation":"<p>The default is <code>true</code>. For this case, Amazon Personalize performs hyperparameter optimization (HPO) on the specified or selected recipe.</p> <p>To turn off HPO, set this parameter to false (<code>--no-perform-hpo</code> when using the AWS CLI). When performing AutoML, this parameter is always <code>true</code> and you should not set it to <code>false</code>.</p>"
+        },
+        "performAutoML":{
+          "shape":"PerformAutoML",
+          "documentation":"<p>The default is <code>false</code>. For this case, you must specify <code>recipeArn</code>.</p> <p>When set to <code>true</code>, Amazon Personalize analyzes your training data and selects the optimal recipe for you. In this case, you must omit <code>recipeArn</code>.</p>"
+        },
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the recipe to use for model training. Only specified when <code>performAutoML</code> is false.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that provides the training data.</p>"
+        },
+        "eventType":{
+          "shape":"EventType",
+          "documentation":"<p>When your schema includes an <code>EVENT_TYPE</code> field, this parameter specifies which type of event (for example, 'click' or 'like') is used as the label for training.</p>"
+        },
+        "minProvisionedTPS":{
+          "shape":"TransactionsPerSecond",
+          "documentation":"<p>Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize will support.</p>"
+        },
+        "solutionConfig":{
+          "shape":"SolutionConfig",
+          "documentation":"<p>The configuration to use with the solution. When <code>performAutoML</code> is true, Amazon Personalize only evaluates the <code>autoMLConfig</code> section of the solution configuration.</p>"
+        }
+      }
+    },
+    "CreateSolutionResponse":{
+      "type":"structure",
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution.</p>"
+        }
+      }
+    },
+    "DataSource":{
+      "type":"structure",
+      "members":{
+        "dataLocation":{
+          "shape":"S3Location",
+          "documentation":"<p>The path to the Amazon S3 bucket where the data that you want to upload to your dataset is stored. For example: </p> <p> <code>s3://bucket-name/training-data.csv</code> </p>"
+        }
+      },
+      "documentation":"<p>Describes the data source that contains the data to upload to a dataset.</p>"
+    },
+    "Dataset":{
+      "type":"structure",
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset that you want metadata for.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group.</p>"
+        },
+        "datasetType":{
+          "shape":"DatasetType",
+          "documentation":"<p>One of the following values:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul>"
+        },
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the associated schema.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the dataset.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the dataset.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>A time stamp that shows when the dataset was updated.</p>"
+        }
+      },
+      "documentation":"<p>Provides metadata for a dataset.</p>"
+    },
+    "DatasetGroup":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the dataset group.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The current status of the dataset group.</p>"
+        },
+        "roleArn":{
+          "shape":"RoleArn",
+          "documentation":"<p>The ARN of the IAM role that has permissions to create the dataset group.</p>"
+        },
+        "kmsKeyArn":{
+          "shape":"KmsKeyArn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the dataset group.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The last update date and time (in Unix time) of the dataset group.</p>"
+        }
+      },
+      "documentation":"<p>A dataset group is a collection of related datasets (Interactions, User, and Item). You create a dataset group by calling . You then create a dataset and add it to a dataset group by calling . The dataset group is used to create and train a solution by calling . A dataset group can contain only one of each type of dataset.</p> <p>You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group.</p>"
+    },
+    "DatasetGroups":{
+      "type":"list",
+      "member":{"shape":"DatasetGroup"},
+      "max":100
+    },
+    "DatasetImportJob":{
+      "type":"structure",
+      "members":{
+        "jobName":{
+          "shape":"Name",
+          "documentation":"<p>The name of the import job.</p>"
+        },
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the dataset import job.</p>"
+        },
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset that receives the imported data.</p>"
+        },
+        "dataSource":{
+          "shape":"DataSource",
+          "documentation":"<p>The Amazon S3 bucket that contains the training data to import.</p>"
+        },
+        "roleArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data source.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The create status of the dataset import job.</p> <p>The values can be </p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the dataset import job.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) of the last update run.</p>"
+        },
+        "datasetImportJobConfig":{
+          "shape":"DatasetImportJobConfig",
+          "documentation":"<p>The dataset import job configuration properties, including the import update frequency.</p>"
+        },
+        "latestDatasetImportJobRun":{
+          "shape":"DatasetImportJobRun",
+          "documentation":"<p>Describes the latest run of the dataset import job.</p>"
+        }
+      },
+      "documentation":"<p>Describes a job that imports training data from a data source (Amazon S3 bucket) to an Amazon Personalize dataset. For more information, see .</p>"
+    },
+    "DatasetImportJobConfig":{
+      "type":"structure",
+      "members":{
+        "importJobSchedule":{
+          "shape":"ImportJobSchedule",
+          "documentation":"<p>A cron expression that specifies the frequency for running the dataset import job. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"
+        }
+      },
+      "documentation":"<p>The dataset import job configuration properties, including the import update frequency.</p>"
+    },
+    "DatasetImportJobRun":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobRunArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of this run of the dataset import job.</p>"
+        },
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the dataset import job.</p>"
+        },
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset that receives the imported data.</p>"
+        },
+        "dataSource":{
+          "shape":"DataSource",
+          "documentation":"<p>The Amazon S3 bucket that contains the training data to import.</p>"
+        },
+        "roleArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the AWS Identity and Access Management (IAM) role that has permissions to read from the Amazon S3 data source.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The run status of the dataset import job.</p> <p>The values can be </p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>When a dataset import job fails, the reason behind the failure.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the dataset import job run.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) of the last import job run.</p>"
+        },
+        "datasetImportJobConfig":{
+          "shape":"DatasetImportJobConfig",
+          "documentation":"<p>The dataset import job configuration properties, including the import update frequency.</p>"
+        }
+      },
+      "documentation":"<p>Describes a specific run of a dataset import job. For more information, see .</p>"
+    },
+    "DatasetImportJobRuns":{
+      "type":"list",
+      "member":{"shape":"DatasetImportJobRun"},
+      "max":100
+    },
+    "DatasetImportJobs":{
+      "type":"list",
+      "member":{"shape":"DatasetImportJob"},
+      "max":100
+    },
+    "DatasetSchema":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the schema.</p>"
+        },
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the schema.</p>"
+        },
+        "schema":{
+          "shape":"AvroSchema",
+          "documentation":"<p>The schema.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) that the schema was created.</p>"
+        }
+      },
+      "documentation":"<p>Describes the schema for a dataset. For more information on schemas, see .</p>"
+    },
+    "DatasetType":{
+      "type":"string",
+      "max":256
+    },
+    "Datasets":{
+      "type":"list",
+      "member":{"shape":"Dataset"},
+      "max":100
+    },
+    "Date":{"type":"timestamp"},
+    "DefaultCategoricalHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "values":{
+          "shape":"CategoricalValues",
+          "documentation":"<p>A list of the categories for the hyperparameter.</p>"
+        },
+        "isTunable":{
+          "shape":"Tunable",
+          "documentation":"<p>Whether the hyperparameter is tunable.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and default range of a categorical hyperparameter and whether the hyperparameter is tunable. A tunable hyperparameter can have its value determined during hyperparameter optimization (HPO).</p>"
+    },
+    "DefaultCategoricalHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"DefaultCategoricalHyperParameterRange"},
+      "max":100
+    },
+    "DefaultContinuousHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "minValue":{
+          "shape":"ContinuousMinValue",
+          "documentation":"<p>The minimum allowable value for the hyperparameter.</p>"
+        },
+        "maxValue":{
+          "shape":"ContinuousMaxValue",
+          "documentation":"<p>The maximum allowable value for the hyperparameter.</p>"
+        },
+        "isTunable":{
+          "shape":"Tunable",
+          "documentation":"<p>Whether the hyperparameter is tunable.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and default range of a continuous hyperparameter and whether the hyperparameter is tunable. A tunable hyperparameter can have its value determined during hyperparameter optimization (HPO).</p>"
+    },
+    "DefaultContinuousHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"DefaultContinuousHyperParameterRange"},
+      "max":100
+    },
+    "DefaultHyperParameterRanges":{
+      "type":"structure",
+      "members":{
+        "integerHyperParameterRanges":{
+          "shape":"DefaultIntegerHyperParameterRanges",
+          "documentation":"<p>The integer-valued hyperparameters and their default ranges.</p>"
+        },
+        "continuousHyperParameterRanges":{
+          "shape":"DefaultContinuousHyperParameterRanges",
+          "documentation":"<p>The continuous hyperparameters and their default ranges.</p>"
+        },
+        "categoricalHyperParameterRanges":{
+          "shape":"DefaultCategoricalHyperParameterRanges",
+          "documentation":"<p>The categorical hyperparameters and their default ranges.</p>"
+        }
+      },
+      "documentation":"<p>Specifies the hyperparameters and their default ranges. Hyperparameters can be categorical, continuous, or integer-valued.</p>"
+    },
+    "DefaultIntegerHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "minValue":{
+          "shape":"IntegerMinValue",
+          "documentation":"<p>The minimum allowable value for the hyperparameter.</p>"
+        },
+        "maxValue":{
+          "shape":"IntegerMaxValue",
+          "documentation":"<p>The maximum allowable value for the hyperparameter.</p>"
+        },
+        "isTunable":{
+          "shape":"Tunable",
+          "documentation":"<p>Indicates whether the hyperparameter is tunable.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and default range of a integer-valued hyperparameter and whether the hyperparameter is tunable. A tunable hyperparameter can have its value determined during hyperparameter optimization (HPO).</p>"
+    },
+    "DefaultIntegerHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"DefaultIntegerHyperParameterRange"},
+      "max":100
+    },
+    "DeleteAlgorithmRequest":{
+      "type":"structure",
+      "required":["algorithmArn"],
+      "members":{
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm to delete.</p>"
+        }
+      }
+    },
+    "DeleteCampaignRequest":{
+      "type":"structure",
+      "required":["campaignArn"],
+      "members":{
+        "campaignArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign to delete.</p>"
+        }
+      }
+    },
+    "DeleteDatasetGroupRequest":{
+      "type":"structure",
+      "required":["datasetGroupArn"],
+      "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the dataset group to delete.</p>"
+        }
+      }
+    },
+    "DeleteDatasetImportJobRequest":{
+      "type":"structure",
+      "required":["datasetImportJobArn"],
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the import job to delete.</p>"
+        }
+      }
+    },
+    "DeleteDatasetRequest":{
+      "type":"structure",
+      "required":["datasetArn"],
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset to delete.</p>"
+        }
+      }
+    },
+    "DeleteEventTrackerRequest":{
+      "type":"structure",
+      "required":["eventTrackerArn"],
+      "members":{
+        "eventTrackerArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the event tracker to delete.</p>"
+        }
+      }
+    },
+    "DeleteFeatureTransformationRequest":{
+      "type":"structure",
+      "required":["featureTransformationArn"],
+      "members":{
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the feature transformation to delete.</p>"
+        }
+      }
+    },
+    "DeleteRecipeRequest":{
+      "type":"structure",
+      "required":["recipeArn"],
+      "members":{
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the recipe.</p>"
+        }
+      }
+    },
+    "DeleteSchemaRequest":{
+      "type":"structure",
+      "required":["schemaArn"],
+      "members":{
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the schema to delete.</p>"
+        }
+      }
+    },
+    "DeleteSolutionRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution to delete.</p>"
+        }
+      }
+    },
+    "DescribeAlgorithmRequest":{
+      "type":"structure",
+      "required":["algorithmArn"],
+      "members":{
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm to describe.</p>"
+        }
+      }
+    },
+    "DescribeAlgorithmResponse":{
+      "type":"structure",
+      "members":{
+        "algorithm":{
+          "shape":"Algorithm",
+          "documentation":"<p>A listing of the properties of the algorithm.</p>"
+        }
+      }
+    },
+    "DescribeCampaignRequest":{
+      "type":"structure",
+      "required":["campaignArn"],
+      "members":{
+        "campaignArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign.</p>"
+        }
+      }
+    },
+    "DescribeCampaignResponse":{
+      "type":"structure",
+      "members":{
+        "campaign":{
+          "shape":"Campaign",
+          "documentation":"<p>The properties of the campaign.</p>"
+        }
+      }
+    },
+    "DescribeCampaignUpdateRequest":{
+      "type":"structure",
+      "required":["campaignUpdateArn"],
+      "members":{
+        "campaignUpdateArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign.</p>"
+        }
+      }
+    },
+    "DescribeCampaignUpdateResponse":{
+      "type":"structure",
+      "members":{
+        "campaign":{
+          "shape":"Campaign",
+          "documentation":"<p>The properties of the updated campaign.</p>"
+        }
+      }
+    },
+    "DescribeDatasetGroupRequest":{
+      "type":"structure",
+      "required":["datasetGroupArn"],
+      "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group to describe.</p>"
+        }
+      }
+    },
+    "DescribeDatasetGroupResponse":{
+      "type":"structure",
+      "members":{
+        "datasetGroup":{
+          "shape":"DatasetGroup",
+          "documentation":"<p>A listing of the dataset group's properties.</p>"
+        }
+      }
+    },
+    "DescribeDatasetImportJobRequest":{
+      "type":"structure",
+      "required":["datasetImportJobArn"],
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job to describe.</p>"
+        }
+      }
+    },
+    "DescribeDatasetImportJobResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJob":{
+          "shape":"DatasetImportJob",
+          "documentation":"<p>Information about the dataset import job, including the create status.</p> <p>The create status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        }
+      }
+    },
+    "DescribeDatasetImportJobRunRequest":{
+      "type":"structure",
+      "required":["datasetImportJobRunArn"],
+      "members":{
+        "datasetImportJobRunArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job to describe.</p>"
+        }
+      }
+    },
+    "DescribeDatasetImportJobRunResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobRun":{
+          "shape":"DatasetImportJobRun",
+          "documentation":"<p>Information about the dataset import job run, including the run status. Only when the run <code>status</code> shows as ACTIVE, can the data be used to train a solution.</p> <p>The run status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        }
+      }
+    },
+    "DescribeDatasetRequest":{
+      "type":"structure",
+      "required":["datasetArn"],
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset to describe.</p>"
+        }
+      }
+    },
+    "DescribeDatasetResponse":{
+      "type":"structure",
+      "members":{
+        "dataset":{
+          "shape":"Dataset",
+          "documentation":"<p>A listing of the dataset's properties.</p>"
+        }
+      }
+    },
+    "DescribeEventTrackerRequest":{
+      "type":"structure",
+      "required":["eventTrackerArn"],
+      "members":{
+        "eventTrackerArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the event tracker to describe.</p>"
+        }
+      }
+    },
+    "DescribeEventTrackerResponse":{
+      "type":"structure",
+      "members":{
+        "eventTracker":{
+          "shape":"EventTracker",
+          "documentation":"<p>An object that describes the event tracker.</p>"
+        }
+      }
+    },
+    "DescribeFeatureExportJobRequest":{
+      "type":"structure",
+      "required":["featureExportJobArn"],
+      "members":{
+        "featureExportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the export job.</p>"
+        }
+      }
+    },
+    "DescribeFeatureExportJobResponse":{
+      "type":"structure",
+      "members":{
+        "featureExportJob":{
+          "shape":"FeatureExportJob",
+          "documentation":"<p>A listing of the FeatureExportJob properties.</p>"
+        }
+      }
+    },
+    "DescribeFeatureTransformationRequest":{
+      "type":"structure",
+      "required":["featureTransformationArn"],
+      "members":{
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the feature transformation to describe.</p>"
+        }
+      }
+    },
+    "DescribeFeatureTransformationResponse":{
+      "type":"structure",
+      "members":{
+        "featureTransformation":{
+          "shape":"FeatureTransformation",
+          "documentation":"<p>A listing of the FeatureTransformation properties.</p>"
+        }
+      }
+    },
+    "DescribeRecipeRequest":{
+      "type":"structure",
+      "required":["recipeArn"],
+      "members":{
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the recipe to describe.</p>"
+        }
+      }
+    },
+    "DescribeRecipeResponse":{
+      "type":"structure",
+      "members":{
+        "recipe":{
+          "shape":"Recipe",
+          "documentation":"<p>An object that describes the recipe.</p>"
+        }
+      }
+    },
+    "DescribeSchemaRequest":{
+      "type":"structure",
+      "required":["schemaArn"],
+      "members":{
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the schema to retrieve.</p>"
+        }
+      }
+    },
+    "DescribeSchemaResponse":{
+      "type":"structure",
+      "members":{
+        "schema":{
+          "shape":"DatasetSchema",
+          "documentation":"<p>The requested schema.</p>"
+        }
+      }
+    },
+    "DescribeSolutionRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution to describe.</p>"
+        }
+      }
+    },
+    "DescribeSolutionResponse":{
+      "type":"structure",
+      "members":{
+        "solution":{
+          "shape":"Solution",
+          "documentation":"<p>An object that describes the solution.</p>"
+        }
+      }
+    },
+    "DescribeSolutionVersionRequest":{
+      "type":"structure",
+      "required":["solutionVersionArn"],
+      "members":{
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution version.</p>"
+        }
+      }
+    },
+    "DescribeSolutionVersionResponse":{
+      "type":"structure",
+      "members":{
+        "solutionVersion":{
+          "shape":"SolutionVersion",
+          "documentation":"<p>The solution version.</p>"
+        }
+      }
+    },
+    "Description":{"type":"string"},
+    "DockerURI":{
+      "type":"string",
+      "max":256
+    },
+    "EventTracker":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the event tracker.</p>"
+        },
+        "eventTrackerArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the event tracker.</p>"
+        },
+        "accountId":{
+          "shape":"AccountId",
+          "documentation":"<p>The Amazon AWS account that owns the event tracker.</p>"
+        },
+        "trackingId":{
+          "shape":"TrackingId",
+          "documentation":"<p>The ID of the event tracker. Include this ID in requests to the API.</p>"
+        },
+        "roleArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the role that has <i>CloudWatchFullAccess</i> permission.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that receives the event data.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the event tracker.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix format) that the event tracker was created.</p>"
+        }
+      },
+      "documentation":"<p>Provides information about an event tracker.</p>"
+    },
+    "EventTrackers":{
+      "type":"list",
+      "member":{"shape":"EventTracker"},
+      "max":100
+    },
+    "EventType":{
+      "type":"string",
+      "max":256
+    },
+    "EventValueThreshold":{
+      "type":"string",
+      "max":256
+    },
+    "FailureReason":{"type":"string"},
+    "FeatureExportJob":{
+      "type":"structure",
+      "members":{
+        "jobName":{
+          "shape":"Name",
+          "documentation":"<p>The name of the export job.</p>"
+        },
+        "featureExportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the export job.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the FeatureTransformation object.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group containing the data to featurize.</p>"
+        },
+        "dataDestination":{
+          "shape":"S3Location",
+          "documentation":"<p>The Amazon S3 bucket that stores the results.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the feature export job.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>When a feature export job fails, the reason behind the failure.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the export job.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The last update date and time (in Unix time) of the export job.</p>"
+        },
+        "featureTransformationOverrides":{
+          "shape":"FeaturizationParameters",
+          "documentation":"<p>The values that override the default values in the feature transformation object.</p>"
+        },
+        "roleArn":{
+          "shape":"Arn",
+          "documentation":"<p>The IAM role with permissions to the Amazon S3 bucket.</p>"
+        }
+      },
+      "documentation":"<p>Creates a task to perform feature transformation. feature transformation is the process of modifying raw input data into a form more suitable for model training.</p>"
+    },
+    "FeatureExportJobs":{
+      "type":"list",
+      "member":{"shape":"FeatureExportJob"},
+      "max":100
+    },
+    "FeatureTransformation":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the feature transformation.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the FeatureTransformation object.</p>"
+        },
+        "defaultParameters":{
+          "shape":"FeaturizationParameters",
+          "documentation":"<p>Provides the default parameters for feature transformation.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the feature transformation.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The last update date and time (in Unix time) of the feature transformation.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the feature transformation.</p>"
+        }
+      },
+      "documentation":"<p>Provides feature transformation information. feature transformation is the process of modifying raw input data into a form more suitable for model training.</p>"
+    },
+    "FeatureTransformationParameters":{
+      "type":"map",
+      "key":{"shape":"ParameterName"},
+      "value":{"shape":"ParameterValue"},
+      "max":100
+    },
+    "FeaturizationParameters":{
+      "type":"map",
+      "key":{"shape":"ParameterName"},
+      "value":{"shape":"ParameterValue"},
+      "max":100
+    },
+    "GetMetricsRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution for which to get metrics.</p>"
+        },
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution version for which to get metrics.</p>"
+        }
+      }
+    },
+    "GetMetricsResponse":{
+      "type":"structure",
+      "members":{
+        "metrics":{
+          "shape":"Metrics",
+          "documentation":"<p>The metrics for the solution versions.</p>"
+        }
+      }
+    },
+    "HPOConfig":{
+      "type":"structure",
+      "members":{
+        "hpoObjective":{
+          "shape":"HPOObjective",
+          "documentation":"<p>The metric to optimize during HPO.</p>"
+        },
+        "hpoResourceConfig":{
+          "shape":"HPOResourceConfig",
+          "documentation":"<p>Describes the resource configuration for HPO.</p>"
+        },
+        "algorithmHyperParameterRanges":{
+          "shape":"HyperParameterRanges",
+          "documentation":"<p>The hyperparameters and their allowable ranges.</p>"
+        }
+      },
+      "documentation":"<p>Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature. Do not use for Amazon Personalize native recipes.</p>"
+    },
+    "HPOObjective":{
+      "type":"structure",
+      "members":{
+        "type":{
+          "shape":"HPOObjectiveType",
+          "documentation":"<p>The data type of the metric.</p>"
+        },
+        "metricName":{
+          "shape":"MetricName",
+          "documentation":"<p>The name of the metric.</p>"
+        },
+        "metricRegex":{
+          "shape":"MetricRegex",
+          "documentation":"<p>A regular expression for finding the metric in the training job logs.</p>"
+        }
+      },
+      "documentation":"<p>The metric to optimize during hyperparameter optimization (HPO).</p>"
+    },
+    "HPOObjectiveType":{
+      "type":"string",
+      "max":256
+    },
+    "HPOResource":{
+      "type":"string",
+      "max":256
+    },
+    "HPOResourceConfig":{
+      "type":"structure",
+      "members":{
+        "maxNumberOfTrainingJobs":{
+          "shape":"HPOResource",
+          "documentation":"<p>The maximum number of training jobs.</p>"
+        },
+        "maxParallelTrainingJobs":{
+          "shape":"HPOResource",
+          "documentation":"<p>The maximum number of parallel training jobs.</p>"
+        }
+      },
+      "documentation":"<p>Describes the resource configuration for hyperparameter optimization (HPO).</p>"
+    },
+    "HyperParameterRanges":{
+      "type":"structure",
+      "members":{
+        "integerHyperParameterRanges":{
+          "shape":"IntegerHyperParameterRanges",
+          "documentation":"<p>The integer-valued hyperparameters and their ranges.</p>"
+        },
+        "continuousHyperParameterRanges":{
+          "shape":"ContinuousHyperParameterRanges",
+          "documentation":"<p>The continuous hyperparameters and their ranges.</p>"
+        },
+        "categoricalHyperParameterRanges":{
+          "shape":"CategoricalHyperParameterRanges",
+          "documentation":"<p>The categorical hyperparameters and their ranges.</p>"
+        }
+      },
+      "documentation":"<p>Specifies the hyperparameters and their ranges. Hyperparameters can be categorical, continuous, or integer-valued.</p>"
+    },
+    "HyperParameters":{
+      "type":"map",
+      "key":{"shape":"ParameterName"},
+      "value":{"shape":"ParameterValue"},
+      "max":100
+    },
+    "ImportJobSchedule":{
+      "type":"string",
+      "max":256
+    },
+    "IntegerHyperParameterRange":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"ParameterName",
+          "documentation":"<p>The name of the hyperparameter.</p>"
+        },
+        "minValue":{
+          "shape":"IntegerMinValue",
+          "documentation":"<p>The minimum allowable value for the hyperparameter.</p>"
+        },
+        "maxValue":{
+          "shape":"IntegerMaxValue",
+          "documentation":"<p>The maximum allowable value for the hyperparameter.</p>"
+        }
+      },
+      "documentation":"<p>Provides the name and range of an integer-valued hyperparameter.</p>"
+    },
+    "IntegerHyperParameterRanges":{
+      "type":"list",
+      "member":{"shape":"IntegerHyperParameterRange"},
+      "max":100
+    },
+    "IntegerMaxValue":{
+      "type":"integer",
+      "max":1000000
+    },
+    "IntegerMinValue":{
+      "type":"integer",
+      "min":-1000000
+    },
+    "InvalidInputException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>Provide a valid value for the field or parameter.</p>",
+      "exception":true
+    },
+    "InvalidNextTokenException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>The token is not valid.</p>",
+      "exception":true
+    },
+    "KmsKeyArn":{"type":"string"},
+    "LatestSolutionVersionInfo":{
+      "type":"structure",
+      "members":{
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the latest version of the solution.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the latest version of the solution.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>When the <code>status</code> is CREATE FAILED, provides the reason why.</p>"
+        }
+      },
+      "documentation":"<p>Describes the latest version of the solution, including the status and the Amazon Resource Name (ARN).</p>"
+    },
+    "LimitExceededException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>The limit on the number of requests per second has been exceeded.</p>",
+      "exception":true
+    },
+    "ListCampaignsRequest":{
+      "type":"structure",
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution to list the campaigns for. When a solution is not specified, all the campaigns associated with the account are listed.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListCampaigns</code> for getting the next set of campaigns (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of campaigns to return.</p>"
+        }
+      }
+    },
+    "ListCampaignsResponse":{
+      "type":"structure",
+      "members":{
+        "campaigns":{
+          "shape":"Campaigns",
+          "documentation":"<p>A list of the campaigns.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of campaigns (if they exist).</p>"
+        }
+      }
+    },
+    "ListDatasetGroupsRequest":{
+      "type":"structure",
+      "members":{
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListDatasetGroups</code> for getting the next set of dataset groups (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of dataset groups to return.</p>"
+        }
+      }
+    },
+    "ListDatasetGroupsResponse":{
+      "type":"structure",
+      "members":{
+        "datasetGroups":{
+          "shape":"DatasetGroups",
+          "documentation":"<p>The list of your dataset groups.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of dataset groups (if they exist).</p>"
+        }
+      }
+    },
+    "ListDatasetImportJobRunsRequest":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job to list the dataset import jobs runs for.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListDatasetImportJobRuns</code> for getting the next set of dataset import job runs (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of results to return.</p>"
+        }
+      }
+    },
+    "ListDatasetImportJobRunsResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobRuns":{
+          "shape":"DatasetImportJobRuns",
+          "documentation":"<p>The list of dataset import job runs.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of import job runs (if they exist).</p>"
+        }
+      }
+    },
+    "ListDatasetImportJobsRequest":{
+      "type":"structure",
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset to list the dataset import jobs for.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListDatasetImportJobs</code> for getting the next set of dataset import jobs (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of dataset import jobs to return.</p>"
+        }
+      }
+    },
+    "ListDatasetImportJobsResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobs":{
+          "shape":"DatasetImportJobs",
+          "documentation":"<p>The list of dataset import jobs.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of dataset import jobs (if they exist).</p>"
+        }
+      }
+    },
+    "ListDatasetsRequest":{
+      "type":"structure",
+      "required":["datasetGroupArn"],
+      "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that contains the datasets to list.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListDatasetImportJobs</code> for getting the next set of dataset import jobs (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of datasets to return.</p>"
+        }
+      }
+    },
+    "ListDatasetsResponse":{
+      "type":"structure",
+      "members":{
+        "datasets":{
+          "shape":"Datasets",
+          "documentation":"<p>An array of <code>Dataset</code> objects. Each object provides metadata information.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of datasets (if they exist).</p>"
+        }
+      }
+    },
+    "ListEventTrackersRequest":{
+      "type":"structure",
+      "members":{
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListEventTrackers</code> for getting the next set of event trackers (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of event trackers to return.</p>"
+        }
+      }
+    },
+    "ListEventTrackersResponse":{
+      "type":"structure",
+      "members":{
+        "EventTrackers":{
+          "shape":"EventTrackers",
+          "documentation":"<p>A list of event trackers.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of event trackers (if they exist).</p>"
+        }
+      }
+    },
+    "ListFeatureExportJobsRequest":{
+      "type":"structure",
+      "members":{
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListFeatureExportJobs</code> for getting the next set of feature export jobs (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of feature export jobs to return.</p>"
+        }
+      }
+    },
+    "ListFeatureExportJobsResponse":{
+      "type":"structure",
+      "members":{
+        "featureExportJobs":{
+          "shape":"FeatureExportJobs",
+          "documentation":"<p>A list of feature export jobs.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of feature export jobs (if they exist).</p>"
+        }
+      }
+    },
+    "ListRecipesRequest":{
+      "type":"structure",
+      "members":{
+        "recipeProvider":{"shape":"RecipeProvider"},
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListRecipes</code> for getting the next set of recipes (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of recipes to return.</p>"
+        }
+      }
+    },
+    "ListRecipesResponse":{
+      "type":"structure",
+      "members":{
+        "recipes":{
+          "shape":"Recipes",
+          "documentation":"<p>A list of the available recipes.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of recipes.</p>"
+        }
+      }
+    },
+    "ListSchemasRequest":{
+      "type":"structure",
+      "members":{
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListSchemas</code> for getting the next set of schemas (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of schemas to return.</p>"
+        }
+      }
+    },
+    "ListSchemasResponse":{
+      "type":"structure",
+      "members":{
+        "Schemas":{
+          "shape":"Schemas",
+          "documentation":"<p>A list of schemas.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token used to get the next set of schemas (if they exist).</p>"
+        }
+      }
+    },
+    "ListSolutionVersionsRequest":{
+      "type":"structure",
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListSolutionVersions</code> for getting the next set of solution versions (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of solution versions to return.</p>"
+        }
+      }
+    },
+    "ListSolutionVersionsResponse":{
+      "type":"structure",
+      "members":{
+        "solutionVersions":{
+          "shape":"SolutionVersions",
+          "documentation":"<p>A list of solution versions describing the version properties.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of solution versions (if they exist).</p>"
+        }
+      }
+    },
+    "ListSolutionsRequest":{
+      "type":"structure",
+      "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token returned from the previous call to <code>ListSolutions</code> for getting the next set of solutions (if they exist).</p>"
+        },
+        "maxResults":{
+          "shape":"MaxResults",
+          "documentation":"<p>The maximum number of solutions to return.</p>"
+        }
+      }
+    },
+    "ListSolutionsResponse":{
+      "type":"structure",
+      "members":{
+        "solutions":{
+          "shape":"Solutions",
+          "documentation":"<p>A list of the current solutions.</p>"
+        },
+        "nextToken":{
+          "shape":"NextToken",
+          "documentation":"<p>A token for getting the next set of solutions (if they exist).</p>"
+        }
+      }
+    },
+    "MaxResults":{
+      "type":"integer",
+      "max":50,
+      "min":1
+    },
+    "MetricName":{
+      "type":"string",
+      "max":256
+    },
+    "MetricRegex":{
+      "type":"string",
+      "max":256
+    },
+    "MetricValue":{"type":"double"},
+    "Metrics":{
+      "type":"map",
+      "key":{"shape":"Arn"},
+      "value":{"shape":"MetricsResult"},
+      "max":100
+    },
+    "MetricsResult":{
+      "type":"map",
+      "key":{"shape":"MetricName"},
+      "value":{"shape":"MetricValue"},
+      "max":100
+    },
+    "Name":{
+      "type":"string",
+      "max":63,
+      "min":1,
+      "pattern":"^[a-zA-Z0-9](-*[a-zA-Z0-9])*"
+    },
+    "NextToken":{
+      "type":"string",
+      "max":256
+    },
+    "ParameterName":{
+      "type":"string",
+      "max":256
+    },
+    "ParameterValue":{
+      "type":"string",
+      "max":1000
+    },
+    "PerformAutoML":{"type":"boolean"},
+    "PerformHPO":{"type":"boolean"},
+    "Recipe":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the recipe.</p>"
+        },
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the recipe.</p>"
+        },
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm that Amazon Personalize uses to train the model.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the FeatureTransformation object.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the recipe.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "description":{
+          "shape":"Description",
+          "documentation":"<p>The description of the recipe.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix format) that the recipe was created.</p>"
+        },
+        "recipeType":{
+          "shape":"RecipeType",
+          "documentation":"<p>One of the following values:</p> <ul> <li> <p>RELATED_ITEMS</p> </li> <li> <p>SEARCH_PERSONALIZATION</p> </li> <li> <p>USER_PERSONALIZATION</p> </li> </ul>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix format) that the recipe was last updated.</p>"
+        }
+      },
+      "documentation":"<p>Provides information about a recipe. Each recipe provides an algorithm that Amazon Personalize uses in model training when you use the API to create a solution. </p>"
+    },
+    "RecipeProvider":{
+      "type":"string",
+      "enum":[
+        "Service",
+        "BYOR",
+        "All"
+      ]
+    },
+    "RecipeType":{
+      "type":"string",
+      "max":256
+    },
+    "Recipes":{
+      "type":"list",
+      "member":{"shape":"Recipe"},
+      "max":100
+    },
+    "ResourceAlreadyExistsException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>The specified resource already exists.</p>",
+      "exception":true
+    },
+    "ResourceConfig":{
+      "type":"map",
+      "key":{"shape":"ParameterName"},
+      "value":{"shape":"ParameterValue"},
+      "max":100
+    },
+    "ResourceInUseException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>The specified resource is in use.</p>",
+      "exception":true
+    },
+    "ResourceNotFoundException":{
+      "type":"structure",
+      "members":{
+      },
+      "documentation":"<p>Could not find the specified resource.</p>",
+      "exception":true
+    },
+    "RetrainSchedule":{
+      "type":"string",
+      "max":256
+    },
+    "RetrainSolutionRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution to re-train.</p>"
+        }
+      }
+    },
+    "RetrainSolutionResponse":{
+      "type":"structure",
+      "members":{
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the new version of the solution that is being trained.</p>"
+        }
+      }
+    },
+    "RoleArn":{
+      "type":"string",
+      "max":256,
+      "pattern":"arn:([a-z\\d-]+):iam::\\d{12}:role/?[a-zA-Z_0-9+=,.@\\-_/]+"
+    },
+    "S3Location":{
+      "type":"string",
+      "max":256
+    },
+    "Schemas":{
+      "type":"list",
+      "member":{"shape":"DatasetSchema"},
+      "max":100
+    },
+    "Solution":{
+      "type":"structure",
+      "members":{
+        "name":{
+          "shape":"Name",
+          "documentation":"<p>The name of the solution.</p>"
+        },
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution.</p>"
+        },
+        "performHPO":{
+          "shape":"PerformHPO",
+          "documentation":"<p>Whether to perform hyperparameter optimization (HPO) on the chosen recipe.</p>"
+        },
+        "performAutoML":{
+          "shape":"PerformAutoML",
+          "documentation":"<p>When true, Amazon Personalize performs a search for the best recipe from the list specified in the solution configuration (<code>recipeArn</code> is ignored). When false, Amazon Personalize uses <code>recipeArn</code>.</p>"
+        },
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the recipe used to create the solution.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that provides the training data.</p>"
+        },
+        "eventType":{
+          "shape":"EventType",
+          "documentation":"<p>The event type (for example, 'click' or 'like') that is used as the label for training.</p>"
+        },
+        "minProvisionedTPS":{
+          "shape":"TransactionsPerSecond",
+          "documentation":"<p>Specifies the requested minimum provisioned transactions (recommendations) per second.</p>"
+        },
+        "solutionConfig":{
+          "shape":"SolutionConfig",
+          "documentation":"<p>Describes the configuration properties for the solution.</p>"
+        },
+        "autoMLResult":{
+          "shape":"AutoMLResult",
+          "documentation":"<p>When <code>performAutoML</code> is true, specifies the best recipe found.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the solution.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The creation date and time (in Unix time) of the solution.</p>"
+        },
+        "latestSolutionVersion":{
+          "shape":"LatestSolutionVersionInfo",
+          "documentation":"<p>Describes the latest version of the solution, including the status and the Amazon Resource Name (ARN).</p>"
+        }
+      },
+      "documentation":"<p>An object that provides information about a solution. A solution is a trained model that is deployed as a campaign.</p>"
+    },
+    "SolutionConfig":{
+      "type":"structure",
+      "members":{
+        "eventValueThreshold":{
+          "shape":"EventValueThreshold",
+          "documentation":"<p>Only events with a value greater than or equal to this threshold are treated as positive samples.</p>"
+        },
+        "retrainingMode":{
+          "shape":"UpdateMode",
+          "documentation":"<p>Setting the mode to 'AUTO' retrains the solution with a predefined default for the recipe. In this case, a retraining schedule is not required. Setting the mode to 'MANUAL' retrains the solution as specified in <code>retrainSchedule</code>. If <code>retrainSchedule</code> is not provided, the mode defaults to 'AUTO'.</p>"
+        },
+        "retrainSchedule":{
+          "shape":"RetrainSchedule",
+          "documentation":"<p>When <code>retrainingMode</code> is set to 'MANUAL', the solution is retrained according to the specified cron expression. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>.</p>"
+        },
+        "hpoConfig":{
+          "shape":"HPOConfig",
+          "documentation":"<p>Describes the properties for hyperparameter optimization (HPO). For use with the bring-your-own-recipe feature. Not used with Amazon Personalize predefined recipes.</p>"
+        },
+        "algorithmHyperParameters":{
+          "shape":"HyperParameters",
+          "documentation":"<p>Lists the hyperparameter names and ranges.</p>"
+        },
+        "featureTransformationParameters":{
+          "shape":"FeatureTransformationParameters",
+          "documentation":"<p>Lists the feature transformation parameters.</p>"
+        },
+        "autoMLConfig":{
+          "shape":"AutoMLConfig",
+          "documentation":"<p>The object containing a list of recipes to search when AutoML is performed.</p>"
+        }
+      },
+      "documentation":"<p>Describes the configuration properties for the solution.</p>"
+    },
+    "SolutionVersion":{
+      "type":"structure",
+      "members":{
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution version.</p>"
+        },
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution.</p>"
+        },
+        "performHPO":{
+          "shape":"PerformHPO",
+          "documentation":"<p>Whether to perform hyperparameter optimization (HPO) on the chosen recipe.</p>"
+        },
+        "performAutoML":{
+          "shape":"PerformAutoML",
+          "documentation":"<p>When true, Amazon Personalize performs a search for the most optimal recipe according to the solution configuration. When false, Amazon Personalize uses <code>recipeArn</code>.</p>"
+        },
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the recipe used in the solution.</p>"
+        },
+        "eventType":{
+          "shape":"EventType",
+          "documentation":"<p>The event type (for example, clicks or watches) that is used as the label for training.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group providing the training data.</p>"
+        },
+        "solutionConfig":{
+          "shape":"SolutionConfig",
+          "documentation":"<p>Describes the configuration properties for the solution.</p>"
+        },
+        "status":{
+          "shape":"Status",
+          "documentation":"<p>The status of the solution version.</p> <p>The status is one of the following values:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>When a solution fails, the reason behind the failure.</p>"
+        },
+        "creationDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) that this version of the solution was created.</p>"
+        },
+        "lastUpdatedDateTime":{
+          "shape":"Date",
+          "documentation":"<p>The date and time (in Unix time) that this version of the solution was last updated.</p>"
+        }
+      },
+      "documentation":"<p>An object that provides information about a specific version of a .</p>"
+    },
+    "SolutionVersions":{
+      "type":"list",
+      "member":{"shape":"SolutionVersion"},
+      "max":100
+    },
+    "Solutions":{
+      "type":"list",
+      "member":{"shape":"Solution"},
+      "max":100
+    },
+    "Status":{
+      "type":"string",
+      "max":256
+    },
+    "TrackingId":{
+      "type":"string",
+      "max":256
+    },
+    "TrainingInputMode":{
+      "type":"string",
+      "max":256
+    },
+    "TransactionsPerSecond":{"type":"integer"},
+    "Tunable":{"type":"boolean"},
+    "UpdateAlgorithmRequest":{
+      "type":"structure",
+      "required":["algorithmArn"],
+      "members":{
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm to update.</p>"
+        },
+        "algorithmImage":{
+          "shape":"AlgorithmImage",
+          "documentation":"<p>Specifies a new URI for the Docker container for the algorithm image.</p>"
+        },
+        "defaultHyperParameters":{
+          "shape":"HyperParameters",
+          "documentation":"<p>Specifies new default hyperparameters.</p>"
+        },
+        "defaultHyperParameterRanges":{
+          "shape":"DefaultHyperParameterRanges",
+          "documentation":"<p>Specifies new default hyperparameter ranges.</p>"
+        },
+        "defaultResourceConfig":{
+          "shape":"ResourceConfig",
+          "documentation":"<p>Specifies a new default resource configuration.</p>"
+        },
+        "trainingInputMode":{
+          "shape":"TrainingInputMode",
+          "documentation":"<p>Specifies a new training input mode.</p>"
+        }
+      }
+    },
+    "UpdateCampaignRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "campaignArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the campaign.</p>"
+        },
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the solution to deploy.</p>"
+        },
+        "solutionVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of a specific solution version to deploy.</p>"
+        },
+        "updateMode":{
+          "shape":"UpdateMode",
+          "documentation":"<p>When the mode is AUTO, the campaign is automatically updated every time the solution is updated.</p>"
+        }
+      }
+    },
+    "UpdateCampaignResponse":{
+      "type":"structure",
+      "members":{
+        "campaignVersionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the updated campaign (version).</p>"
+        }
+      }
+    },
+    "UpdateDatasetImportJobRequest":{
+      "type":"structure",
+      "required":["datasetImportJobArn"],
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job to update.</p>"
+        },
+        "dataSource":{
+          "shape":"DataSource",
+          "documentation":"<p>The Amazon S3 bucket that contains the new data to use for training the model.</p>"
+        },
+        "datasetImportJobConfig":{
+          "shape":"DatasetImportJobConfig",
+          "documentation":"<p>The configuration properties for the dataset import job.</p>"
+        }
+      }
+    },
+    "UpdateDatasetImportJobResponse":{
+      "type":"structure",
+      "members":{
+        "datasetImportJobArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job.</p>"
+        }
+      }
+    },
+    "UpdateDatasetRequest":{
+      "type":"structure",
+      "required":[
+        "datasetArn",
+        "schemaArn"
+      ],
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset to update.</p>"
+        },
+        "schemaArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the new schema to associate with the dataset.</p>"
+        }
+      }
+    },
+    "UpdateFeatureTransformationRequest":{
+      "type":"structure",
+      "required":["featureTransformationArn"],
+      "members":{
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the feature transformation to update.</p>"
+        },
+        "defaultParameters":{
+          "shape":"FeaturizationParameters",
+          "documentation":"<p>The default parameters used to update the feature transformation.</p>"
+        }
+      }
+    },
+    "UpdateMode":{
+      "type":"string",
+      "enum":[
+        "AUTO",
+        "MANUAL"
+      ],
+      "max":256
+    },
+    "UpdateRecipeRequest":{
+      "type":"structure",
+      "required":["recipeArn"],
+      "members":{
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the recipe to update.</p>"
+        },
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the algorithm to use in the updated recipe.</p>"
+        },
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the feature transformation object to use in the updated recipe.</p>"
+        }
+      }
+    },
+    "UpdateSolutionRequest":{
+      "type":"structure",
+      "required":["solutionArn"],
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the solution to be updated.</p>"
+        },
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The Amazon Resource Name (ARN) of the new dataset group.</p>"
+        },
+        "solutionConfig":{
+          "shape":"SolutionConfig",
+          "documentation":"<p>The new solution configuration.</p>"
+        }
+      }
+    },
+    "UpdateSolutionResponse":{
+      "type":"structure",
+      "members":{
+        "solutionArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of the updated solution.</p>"
+        }
+      }
+    }
+  },
+  "documentation":"<p>Amazon Personalize is a machine learning service that makes it easy to add individualized recommendations to customers.</p>"
+}
