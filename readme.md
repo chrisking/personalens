@@ -13,7 +13,7 @@ have been followed in creating this project.
 4. Using the application
 5. Integrating clickstream data
 
-## Honerable mentions
+## Special Thanks
 
 This project would not have been possible without the service team at AWS building Amazon Personalize.
 
