@@ -93,5 +93,9 @@ Given the movie posters are quite large, they are not placed inside the git repo
 
 ```
 cd static
-wget 
+wget https://s3.amazonaws.com/chriskingpartnershare/img.zip
+unzip img.zip
+rm -f img.zip
+cp -R img ../data/ml-100k/ 
 ```
+
