@@ -43,18 +43,24 @@
     </div>
 
     <div class="row"><h2>Recommendations:</h2></div>
+    
+    {% if recommendations % }
+        {% for movie in recommendations %}
+            {% if forloop.first %}<div class="row">{% endif %}
+        <div class="span3">
+            <a href="/user/{{ ml_user.user_id }}/movie/{{ movie.movie_id }}" target="_blank">
+                <h4>{{ movie }}</h4>
+                <img src="/static/img/{{ movie.poster.filename }}" width="150">
+            </a>
+        </div>
+        {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
+    {% else % }
+        <h2>No campaign exists, please build one first.</h2>
+    {% endif %}
 
-    {% for movie in recommendations %}
-        {% if forloop.first %}<div class="row">{% endif %}
-    <div class="span3">
-        <a href="/user/{{ ml_user.user_id }}/movie/{{ movie.movie_id }}" target="_blank">
-            <h4>{{ movie }}</h4>
-            <img src="/static/img/{{ movie.poster.filename }}" width="150">
-        </a>
-    </div>
-    {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
-    {% if forloop.last %}</div>{% endif %}
-    {% endfor %}
+    
 
     <hr>
 

@@ -99,3 +99,31 @@ rm -f img.zip
 cp -R img ../data/ml-100k/ 
 ```
 
+The last thing to define before running the application is the Django configuration for this environment. Paste these lines to finish the configuration
+
+
+```
+echo '# Django Config' >> ~/.virtualenvs/personalens/bin/postactivate
+echo 'export PYTHONPATH=.:/home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/bin/postactivate
+echo 'export DJANGO_SETTINGS_MODULE=personalens.settings' >> ~/.virtualenvs/personalens/bin/postactivate
+echo 'cd /home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/bin/postactivate
+workon personalens
+```
+
+In order to view your running application you will need to identify your instance's external IP address, to do that:
+
+```
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+```
+
+Then run the server with:
+
+```
+django-admin.py runserver 0.0.0.0:8000
+```
+
+Once it is running, open another browser tab on your computer and visit: `http://the.externa.ip.address:8000`
+
+For example if the curl command returned `54.144.226.110` you would visit: http://54.144.226.110:8000
+
+

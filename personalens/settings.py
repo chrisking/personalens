@@ -25,7 +25,7 @@ SECRET_KEY = 'sw#r*fwm@wmxi+$zp0fj8w%__7h$_sj86*56=$n^xighd1u5f&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -127,4 +127,6 @@ STREAM_EVENTS = True
 
 # Personalize Configuration
 
-CAMPAIGN_ARN = "arn:aws:personalize:us-east-1:059124553121:campaign/Django-campaign"
+#CAMPAIGN_ARN = "arn:aws:personalize:us-east-1:059124553121:campaign/Django-campaign"
+
+CAMPAIGN_ARN = None
