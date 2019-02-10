@@ -100,6 +100,7 @@ def stream_event(user, movie):
     else:
         print("Not streaming events")
 
+
 def user_view_movie(request, userid, movieid):
     """
 
