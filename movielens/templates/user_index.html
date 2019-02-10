@@ -44,7 +44,7 @@
 
     <div class="row"><h2>Recommendations:</h2></div>
     
-    {% if recommendations % }
+    {% if recommendations %}
         {% for movie in recommendations %}
             {% if forloop.first %}<div class="row">{% endif %}
         <div class="span3">
@@ -56,7 +56,7 @@
         {% if forloop.counter|divisibleby:4 %}</div><div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
         {% endfor %}
-    {% else % }
+    {% else %}
         <h2>No campaign exists, please build one first.</h2>
     {% endif %}
 
