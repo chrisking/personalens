@@ -25,6 +25,40 @@ inactivity to save on costs, select the duration under `Cost-saving setting`. Af
 
 Review all of the settings and then click `Create Environment`, this process will take a few minutes to complete. Once it has completed your Cloud9 IDE will load in your browser.
 
+## Configuring Security Group Settings
+
+Each Cloud9 instance running in AWS is powered by an EC2 Instance or virtual machine, you will need to open a few ports in order to view the application
+and Jupyter notebooks later.
+
+Open a new tab in your browser and visit https://console.aws.amazon.com/
+
+From this page, again search for `Cloud9` and visit the service page. Click the `View Details` button on this page, note the section for `Security Groups` and
+copy the value, for example `sg-076c818588c59b781`.
+
+Click `Services` at the top of the page and search for `EC2` then click it. 
+
+Click the link in the left column titled `Security Groups`. Paste your copied value in the search bar and press enter.
+
+Once selected, click the `Inbound` tab at the bottom. Next, click the `Edit` button.
+
+Add 2 rules with the following settings:
+
+#### Rule 1
+
+Custom TCP Rule, Port Range: 8000, Source: My IP, Description: Django Application
+
+#### Rule 2
+
+Custom TCP Rule, Port Range: 8888, Source: My IP, Description: Jupyter Notebooks
+
+After adding them, click `Save`
+
+You may now close your tab and go back to the Cloud9 IDE window. You have enabled access for your computer. 
+
+If you change locations and subsequently IP addresses you can always go back to this page and update the rules with your new
+connection information.
+
+
 ## Configuring Your Cloud9 Instance for Development
 
 Any commands in this session will be formatted like this:
@@ -99,7 +133,7 @@ rm -f img.zip
 cp -R img ../data/ml-100k/ 
 ```
 
-The last thing to define before running the application is the Django configuration for this environment. Paste these lines to finish the configuration
+The last thing to define before running thes application is the Django configuration for this environment. Paste these lines to finish the configuration
 
 
 ```
