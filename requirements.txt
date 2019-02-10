@@ -1,13 +1,13 @@
 appnope==0.1.0
 asn1crypto==0.24.0
-awscli==1.16.96
+awscli==1.16.101
 backcall==0.1.0
 bcrypt==3.1.6
 beautifulsoup4==4.7.1
 bleach==3.1.0
 boto==2.49.0
 boto3==1.9.86
-botocore==1.12.86
+botocore==1.12.91
 certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
@@ -61,7 +61,7 @@ pyzmq==17.1.2
 qtconsole==4.4.3
 requests==2.21.0
 rsa==3.4.2
-s3transfer==0.1.13
+s3transfer==0.2.0
 Send2Trash==1.5.0
 six==1.12.0
 soupsieve==1.7.3
