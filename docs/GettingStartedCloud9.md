@@ -144,6 +144,15 @@ echo 'cd /home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/b
 workon personalens
 ```
 
+A database with all migrations exists in `local_copy.sqlite`, however it does not yet have an admin user for the web interface.
+
+Create one with the following command, any username or passwords are your choice, but save them for later.
+
+```
+django-admin.py createsuperuser
+```
+
+
 In order to view your running application you will need to identify your instance's external IP address, to do that:
 
 ```
