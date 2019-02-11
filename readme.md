@@ -10,7 +10,7 @@ have been followed in creating this project.
 1. [Getting Started with Cloud9](docs/GettingStartedCloud9.md)
 2. [Loading the data into the database](docs/LoadingDataIntotheDatabase.md)
 3. [Loading the data into Amazon Personalize](docs/LoadingDataIntoAmazonPersonalize.md)
-4. Using the application
+4. [Integrating Amazon Personalize with Django](docs/IntegratingAmazonPersonalizeWithDjango.md)
 5. Integrating clickstream data
 
 ## Special Thanks
