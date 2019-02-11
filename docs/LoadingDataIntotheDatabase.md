@@ -41,3 +41,12 @@ An example would be http://54.144.226.110:8888?token=f8853b4ae844f33b6e7f6ca1bf6
 If the request times out or you have connectivity problems, validate that you have your Security Group settings
 defined correctly. For specific instructions see [here](GettingStartedCloud9.md).
 
+
+## Actually Loading Data
+
+The real work will take place inside Jupyter, in your Jupyter window, open the `notebooks` folder, then open `DataLoader.ipynb` by clicking on it.
+
+Follow the rest of the instructions in the notebook. To execute cells you can press `shift` + `Enter` or cilck the `Run` button in the menu bar. Read each cell carefully before executing and update
+any values where you are prompted.
+
+When you have completed it move onto the next step (TBD).
