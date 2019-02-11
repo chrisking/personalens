@@ -169,4 +169,8 @@ Once it is running, open another browser tab on your computer and visit: `http:/
 
 For example if the curl command returned `54.144.226.110` you would visit: http://54.144.226.110:8000
 
+## Next: Loading Data Into the Database
+
+Continue [here:](LoadingDataIntotheDatabase.md)
+
 

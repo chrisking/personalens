@@ -7,8 +7,8 @@ have been followed in creating this project.
 
 ## Overview
 
-1. Configuring your Python Environment
-2. Loading the data into the database
+1. [Getting Started with Cloud9](docs/GettingStartedCloud9.md)
+2. [Loading the data into the database](docs/LoadingDataIntotheDatabase.md)
 3. Loading the data into Amazon Personalize
 4. Using the application
 5. Integrating clickstream data
