@@ -44,9 +44,9 @@ defined correctly. For specific instructions see [here](GettingStartedCloud9.md)
 
 ## Actually Loading Data
 
-The real work will take place inside Jupyter, in your Jupyter window, open the `notebooks` folder, then open `DataLoader.ipynb` by clicking on it.
+The real work will take place inside Jupyter, in your Jupyter window, open the  `DataLoader.ipynb` file by clicking on it.
 
 Follow the rest of the instructions in the notebook. To execute cells you can press `shift` + `Enter` or cilck the `Run` button in the menu bar. Read each cell carefully before executing and update
 any values where you are prompted.
 
-When you have completed it move onto the next step (TBD).
+When you have completed it move onto the next step: [Loading the data into Amazon Personalize](LoadingDataIntoAmazonPersonalize.md)
