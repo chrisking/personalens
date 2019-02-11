@@ -144,11 +144,10 @@ echo 'cd /home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/b
 workon personalens
 ```
 
-A database with all migrations exists in `local_copy.sqlite`, however it does not yet have an admin user for the web interface.
-
-Create one with the following command, any username or passwords are your choice, but save them for later.
+You will need to create a database first and then a super user, do so with the following commands. Any username or passwords are your choice, but save them for later.
 
 ```
+django-admin.py migrate
 django-admin.py createsuperuser
 ```
 

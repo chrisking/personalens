@@ -36,3 +36,4 @@ static/img/
 .idea/
 .ipynb_checkpoints/
 static/img.zip
+local_copy.sqlite
