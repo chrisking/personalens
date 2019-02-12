@@ -14,19 +14,19 @@ To get started, open your Cloud9 environment if it is not already open in your b
 
 Once there, open a terminal and enter:
 
-```
+```bash
 workon personalens
 ```
 
 Again you will need the IP address if your Cloud9 instance so write it down after getting the output of:
 
-```
+```bash
 curl http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 
 To launch the Jupyter Notebook server:
 
-```
+```bash
 jupyter notebook --ip=0.0.0.0
 ```
 
