@@ -99,12 +99,6 @@ echo 'export AWS_SECRET_ACCESS_KEY=380ouTOIH#IUH#KFJ#HKJH#' >> ~/.bashrc
 echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 ```
 
-Now remove an alias that points python to python2.7:
-
-```bash
-sed 'alias python=python27' ~/.bashrc
-```
-
 Once complete activate these new values in your environment with:
 
 ```bash
