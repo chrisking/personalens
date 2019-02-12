@@ -83,7 +83,7 @@ pip install virtualenvwrapper
 
 Now update your terminal's bash profile to support virtualenv and virtualenvwrapper:
 
-```
+```bash
 echo '# Virtualenv Configuration' >> ~/.bashrc
 echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
 echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
@@ -92,7 +92,7 @@ echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 At this point you should also deploy the access key you created earlier, assuming your access key ID is `djaflkj3lkjr3rj9` and your secret access key is `380ouTOIH#IUH#KFJ#HKJH#` use the lines
 below replacing the acces key ID and secret access key values with your own:
 
-```
+```bash
 echo '# AWS Configuration' >> ~/.bashrc
 echo 'export AWS_ACCESS_KEY_ID=djaflkj3lkjr3rj9' >> ~/.bashrc
 echo 'export AWS_SECRET_ACCESS_KEY=380ouTOIH#IUH#KFJ#HKJH#' >> ~/.bashrc
@@ -101,7 +101,7 @@ echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 
 Once complete activate these new values in your environment with:
 
-```
+```bash
 source ~/.bashrc
 ```
 
@@ -118,13 +118,13 @@ virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/postmkvirtua
 
 After this you are now ready to create the virtualenv for Personalens enter the following:
 
-```
+```bash
 mkvirtualenv -p python3 personalens
 ```
 
 Finally you are ready to clone the code and install its dependencies:
 
-```
+```bash
 git clone https://github.com/chrisking/personalens.git
 cd personalens
 pip install -r requirements.txt
@@ -132,7 +132,7 @@ pip install -r requirements.txt
 
 Given the movie posters are quite large, they are not placed inside the git repository and must be downloaded separately.
 
-```
+```bash
 cd static
 wget https://s3.amazonaws.com/chriskingpartnershare/img.zip
 unzip img.zip
@@ -143,7 +143,7 @@ cp -R img ../data/ml-100k/
 The last thing to define before running thes application is the Django configuration for this environment. Paste these lines to finish the configuration
 
 
-```
+```bash
 echo '# Django Config' >> ~/.virtualenvs/personalens/bin/postactivate
 echo 'export PYTHONPATH=.:/home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/bin/postactivate
 echo 'export DJANGO_SETTINGS_MODULE=personalens.settings' >> ~/.virtualenvs/personalens/bin/postactivate
@@ -153,7 +153,7 @@ workon personalens
 
 You will need to create a database first and then a super user, do so with the following commands. Any username or passwords are your choice, but save them for later.
 
-```
+```bash
 django-admin.py migrate
 django-admin.py createsuperuser
 ```
@@ -161,13 +161,13 @@ django-admin.py createsuperuser
 
 In order to view your running application you will need to identify your instance's external IP address, to do that:
 
-```
+```bash
 curl http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 
 Then run the server with:
 
-```
+```bash
 django-admin.py runserver 0.0.0.0:8000
 ```
 
