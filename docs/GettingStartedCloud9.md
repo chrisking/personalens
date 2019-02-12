@@ -86,7 +86,7 @@ Now update your terminal's bash profile to support virtualenv and virtualenvwrap
 ```bash
 echo '# Virtualenv Configuration' >> ~/.bashrc
 echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
-echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
+echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 ```
 
 At this point you should also deploy the access key you created earlier, assuming your access key ID is `djaflkj3lkjr3rj9` and your secret access key is `380ouTOIH#IUH#KFJ#HKJH#` use the lines
