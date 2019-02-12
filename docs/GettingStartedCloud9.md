@@ -53,6 +53,12 @@ Custom TCP Rule, Port Range: 8888, Source: My IP, Description: Jupyter Notebooks
 
 After adding them, click `Save`
 
+
+## Configuring IAM
+
+You will need an IAM access key in order to communicate with the AWS services inside your Cloud9 environment. Follow the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)
+ to generate a key for your account if you do not have one. Note the values as you will use them when you are working on the Cloud9 environment.
+
 You may now close your tab and go back to the Cloud9 IDE window. You have enabled access for your computer. 
 
 If you change locations and subsequently IP addresses you can always go back to this page and update the rules with your new
@@ -75,24 +81,25 @@ The very first thing is to install the Python utility virtualenvwrapper. It allo
 pip install virtualenvwrapper
 ```
 
-Now update your terminal's bash profile with nano:
+Now update your terminal's bash profile to support virtualenv and virtualenvwrapper:
 
 ```
-nano ~/.bashrc
+echo '# Virtualenv Configuration' >> ~/.bashrc
+echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
+echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 ```
 
-If you are unfamiliar with using Nano, take a quick look at the basics here: https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/
-
-Mainly you will need to know how to save a file, and that is by pressing `ctrl + x` or `cmd + x` ( Control or Command and then the x key) then pressing enter and following the directions.
-
-Once open, add the following to the end of the file:
+At this point you should also deploy the access key you created earlier, assuming your access key ID is `djaflkj3lkjr3rj9` and your secret access key is `380ouTOIH#IUH#KFJ#HKJH#` use the lines
+below replacing the acces key ID and secret access key values with your own:
 
 ```
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+echo '# AWS Configuration' >> ~/.bashrc
+echo 'export AWS_ACCESS_KEY_ID=djaflkj3lkjr3rj9' >> ~/.bashrc
+echo 'export AWS_SECRET_ACCESS_KEY=380ouTOIH#IUH#KFJ#HKJH#' >> ~/.bashrc
+echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 ```
 
-Once saved and nano has closed, update your terminal's configuration with:
+Once complete activate these new values in your environment with:
 
 ```
 source ~/.bashrc

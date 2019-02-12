@@ -5,3 +5,4 @@ Just like the previous phase where you used a Jupyter Notebook to do most of the
 
 Once you have completed the notebook you can move onto [Integrating Amazon Personalize with Django](IntegratingAmazonPersonalizeWithDjango.md)
 
+
