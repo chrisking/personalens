@@ -69,7 +69,7 @@ connection information.
 
 Any commands in this session will be formatted like this:
 
-```
+```bash
 pwd
 ```
 
@@ -77,7 +77,7 @@ These commands should be entered in a terminal session inside your Cloud9 IDE. Y
 
 The very first thing is to install the Python utility virtualenvwrapper. It allows you to quickly activate isolated Python environments.
 
-```
+```bash
 pip install virtualenvwrapper
 ```
 
