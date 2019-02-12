@@ -126,7 +126,5 @@ FILE_PATH_FIELD_DIRECTORY = os.path.join(BASE_DIR, "static", "img")
 STREAM_EVENTS = True
 
 # Personalize Configuration
-
-#CAMPAIGN_ARN = "arn:aws:personalize:us-east-1:059124553121:campaign/Django-campaign"
-
 CAMPAIGN_ARN = None
+STREAM_EVENTS = True
