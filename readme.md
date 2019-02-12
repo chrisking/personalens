@@ -20,5 +20,5 @@ This project would not have been possible without the service team at AWS buildi
 All of the data comes from the fine folks working on [movielens](https://movielens.org).
 
 Getting a local copy of the posters is a bit tricky, a large thank you to [@babu-thomas](https://github.com/babu-thomas) for his work on [this project](https://github.com/babu-thomas/movielens-posters) that 
-allows you to scape all of the posters and cache them locally.
+allows you to scrape all of the posters and cache them locally.
 
