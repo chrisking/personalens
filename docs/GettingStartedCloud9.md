@@ -75,21 +75,9 @@ pwd
 
 These commands should be entered in a terminal session inside your Cloud9 IDE. You can start one by clicking the `+` tab and selecting `New Terminal`.
 
-The very first thing is to install the Python utility virtualenvwrapper. It allows you to quickly activate isolated Python environments.
 
-```bash
-pip install virtualenvwrapper
-```
 
-Now update your terminal's bash profile to support virtualenv and virtualenvwrapper:
-
-```bash
-echo '# Virtualenv Configuration' >> ~/.bashrc
-echo 'export WORKON_HOME=$HOME/.virtualenvs' >> ~/.bashrc
-echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
-```
-
-At this point you should also deploy the access key you created earlier, assuming your access key ID is `djaflkj3lkjr3rj9` and your secret access key is `380ouTOIH#IUH#KFJ#HKJH#` use the lines
+To begin, deploy the access key you created earlier, assuming your access key ID is `djaflkj3lkjr3rj9` and your secret access key is `380ouTOIH#IUH#KFJ#HKJH#` use the lines
 below replacing the acces key ID and secret access key values with your own:
 
 ```bash
@@ -99,36 +87,22 @@ echo 'export AWS_SECRET_ACCESS_KEY=380ouTOIH#IUH#KFJ#HKJH#' >> ~/.bashrc
 echo 'export AWS_DEFAULT_REGION=us-east-1' >> ~/.bashrc
 ```
 
+
+Now you are ready to clone the code and install its dependencies:
+
+```bash
+git clone https://github.com/chrisking/personalens.git
+cd personalens
+sudo yum install -y python36 python36-devel python36-pip python36-setuptools python36-virtualenv
+sudo python3 -m pip install -r requirements.txt  
+```
+
 Once complete activate these new values in your environment with:
 
 ```bash
 source ~/.bashrc
 ```
 
-You can see that this is successful by a series of lines like the following being returned:
-
-```
-function
-virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/premkproject
-virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/postmkproject
-virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/initialize
-virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/premkvirtualenv
-virtualenvwrapper.user_scripts creating /home/ec2-user/.virtualenvs/postmkvirtualenv.....
-```
-
-After this you are now ready to create the virtualenv for Personalens enter the following:
-
-```bash
-mkvirtualenv -p python3 personalens
-```
-
-Finally you are ready to clone the code and install its dependencies:
-
-```bash
-git clone https://github.com/chrisking/personalens.git
-cd personalens
-pip install -r requirements.txt
-```
 
 Given the movie posters are quite large, they are not placed inside the git repository and must be downloaded separately.
 
@@ -140,15 +114,14 @@ rm -f img.zip
 cp -R img ../data/ml-100k/ 
 ```
 
-The last thing to define before running thes application is the Django configuration for this environment. Paste these lines to finish the configuration
+The last thing to define before running the application is the Django configuration for this environment. Paste these lines to finish the configuration
 
 
 ```bash
-echo '# Django Config' >> ~/.virtualenvs/personalens/bin/postactivate
-echo 'export PYTHONPATH=.:/home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/bin/postactivate
-echo 'export DJANGO_SETTINGS_MODULE=personalens.settings' >> ~/.virtualenvs/personalens/bin/postactivate
-echo 'cd /home/ec2-user/environment/personalens' >> ~/.virtualenvs/personalens/bin/postactivate
-workon personalens
+echo '# Django Config' >> ~/.bashrc
+echo 'export PYTHONPATH=.:/home/ec2-user/environment/personalens' >> ~/.bashrc
+echo 'export DJANGO_SETTINGS_MODULE=personalens.settings' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 You will need to create a database first and then a super user, do so with the following commands. Any username or passwords are your choice, but save them for later.
