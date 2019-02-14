@@ -127,6 +127,7 @@ source ~/.bashrc
 You will need to create a database first and then a super user, do so with the following commands. Any username or passwords are your choice, but save them for later.
 
 ```bash
+cd ~/environment/personalens
 django-admin.py migrate
 django-admin.py createsuperuser
 ```
