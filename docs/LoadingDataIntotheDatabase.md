@@ -15,7 +15,7 @@ To get started, open your Cloud9 environment if it is not already open in your b
 Once there, open a terminal and enter:
 
 ```bash
-workon personalens
+cd ~/environment/personalens
 ```
 
 Again you will need the IP address if your Cloud9 instance so write it down after getting the output of:
