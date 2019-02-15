@@ -42,7 +42,7 @@
         {"shape":"ResourceAlreadyExistsException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates a campaign by deploying a solution. When a client sends a request to Amazon Personalize, a campaign is specified in the request.</p> <p>You can specify a specific solution version to be used for the campaign. When a specific version is not specified, Amazon Personalize uses the most recent solution version.</p> <p>To have the campaign automatically updated every time the soluton is updated, set the <code>updateMode</code> to <code>AUTO</code>. When the <code>updateMode</code> is set to <code>MANUAL</code>, you must call for the campaign to use an updated solution.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the campaign status, call or .</p> <note> <p>You must wait until the <code>status</code> of the campaign is <code>ACTIVE</code> before asking the campaign for recommendations.</p> </note> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "documentation":"<p>Creates a campaign by deploying a solution. When a client calls the API, a campaign is specified in the request.</p> <p>When you create a campaign, you specify the <code>solutionArn</code>, and optionally, the <code>solutionVersionArn</code>. Include <code>solutionVersionArn</code> when you want the campaign to be based on a specific trained solution. When <code>solutionVersionArn</code> is omitted, Amazon Personalize uses the most recent successfully trained version of <code>solutionArn</code>.</p> <p> <b>Status</b> </p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING &gt; DELETE IN_PROGRESS &gt; DELETE FAILED</p> </li> </ul> <p>To get the campaign status, call .</p> <note> <p>You must wait until the <code>status</code> of the campaign is <code>ACTIVE</code> before asking the campaign for recommendations.</p> </note> <p> <b>Scheduling</b> </p> <p>To have the campaign automatically updated every time the soluton is updated, set the <code>updateMode</code> to <code>AUTO</code>. When the <code>updateMode</code> is set to <code>MANUAL</code>, you must call for the campaign to use an updated solution.</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
       "idempotent":true
     },
     "CreateDataset":{
@@ -59,7 +59,7 @@
         {"shape":"ResourceAlreadyExistsException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates a dataset and adds it to the specified dataset group. There are three types of datasets:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul> <p>Each dataset type has an associated schema with required field types. Only the <code>INTERACTIONS</code> dataset is required to train a model (create a solution).</p> <p>To create a dataset group, call .</p> <p class=\"title\"> <b>APIs that require a dataset ARN in the request</b> </p> <ul> <li> <p/> </li> </ul> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "documentation":"<p>Creates an empty dataset and adds it to the specified dataset group. You use to import your training data to a dataset.</p> <p>There are three types of datasets:</p> <ul> <li> <p>Interactions</p> </li> <li> <p>Items</p> </li> <li> <p>Users</p> </li> </ul> <p>Each dataset type has an associated schema with required field types. Only the <code>Interactions</code> dataset is required to train a model (create a solution).</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
       "idempotent":true
     },
     "CreateDatasetGroup":{
@@ -75,7 +75,7 @@
         {"shape":"ResourceAlreadyExistsException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates an empty dataset group. A dataset group contains related datasets that supply data for training a model. A dataset group can contain at most three datasets, one for each type of dataset:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul> <p>To train a model (create a solution), a dataset group containing a dataset of type <code>INTERACTIONS</code> is required. You call to add a dataset to the group.</p> <p>A dataset group can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the status of the dataset group, call .</p> <note> <p>You must wait until the <code>status</code> of the dataset group is <code>ACTIVE</code> before adding a dataset to the group.</p> </note> <p>You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group.</p> <p class=\"title\"> <b>APIs that require a dataset group ARN in the request</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>"
+      "documentation":"<p>Creates an empty dataset group. A dataset group contains related datasets that supply data for training a model. A dataset group can contain at most three datasets, one for each type of dataset:</p> <ul> <li> <p>Interactions</p> </li> <li> <p>Items</p> </li> <li> <p>Users</p> </li> </ul> <p>To train a model (create a solution), a dataset group containing a dataset of type <code>Interactions</code> is required. You call to add a dataset to the group.</p> <p>A dataset group can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING &gt; DELETE IN_PROGRESS &gt; DELETE FAILED</p> </li> </ul> <p>To get the status of the dataset group, call . If the status shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why the creation failed.</p> <note> <p>You must wait until the <code>status</code> of the dataset group is <code>ACTIVE</code> before adding a dataset to the group.</p> </note> <p>You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group. If you specify a KMS key, you must also include an AWS Identity and Access Management (IAM) role that has permission to access the key.</p> <p class=\"title\"> <b>APIs that require a dataset group ARN in the request</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>"
     },
     "CreateDatasetImportJob":{
       "name":"CreateDatasetImportJob",
@@ -91,7 +91,7 @@
         {"shape":"ResourceAlreadyExistsException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates a job that imports training data from your data source (an Amazon S3 bucket) to an Amazon Personalize dataset. To allow Amazon Personalize to import the training data, you must specify an AWS Identity and Access Management (IAM) role that has permission to read from the data source.</p> <p>This operation occurs in two steps. First, the import job itself is created. Second, upon successful creation, a run of the import job is initiated.</p> <p>A dataset import job can be in one of the following create states:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul> <p>To get the create status of the import job, call and provide the dataset import job ARN. Once the create status shows as <code>ACTIVE</code>, the <code>DescribeDatasetImportJob</code> response includes the <code>latestDatasetImportJobRun</code> object and its run status.</p> <p>The dataset import is complete when the run status of <code>latestDatasetImportJobRun</code> shows as <code>ACTIVE</code>. If the run status shows as <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why the job failed. You can check just the run status by calling .</p> <note> <p>Importing takes time. You must wait until the <code>status</code> of <code>latestDatasetImportJobRun</code> shows as <code>ACTIVE</code> before training a model using the dataset.</p> </note> <p>When a <code>datasetImportJobConfig</code> is specified, a new run of the import job is repeated at the frequency defined by its <code>importJobSchedule</code> key. You specify the frequency using a cron expression. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>.</p> <p>When <code>datasetImportJobConfig</code> is not specified, you must call to create a new run. Each run uses a snapshot of the source data at the time of the call and is given a unique Amazon Resource Name (ARN).</p> <important> <p>The dataset import job replaces any previous data in the dataset.</p> </important> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
+      "documentation":"<p>Creates a job that imports training data from your data source (an Amazon S3 bucket) to an Amazon Personalize dataset. To allow Amazon Personalize to import the training data, you must specify an AWS Identity and Access Management (IAM) role that has permission to read from the data source.</p> <important> <p>The dataset import job replaces any previous data in the dataset.</p> </important> <p>This operation occurs in two steps. First, the import job itself is created. Second, upon successful creation, a run of the import job is initiated.</p> <p> <b>Status</b> </p> <p>A dataset import job can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING &gt; DELETE IN_PROGRESS &gt; DELETE FAILED</p> </li> </ul> <p>To get the <i>create</i> status of the import job, call providing the Amazon Resource Name (ARN) of the dataset import job. Once the create status shows as ACTIVE, the <code>DescribeDatasetImportJob</code> response includes the <code>latestDatasetImportJobRun</code> object and its <i>run</i> status. The dataset import is complete when the run status of <code>latestDatasetImportJobRun</code> shows as ACTIVE. You can check just the run status by calling . If the run status shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why the job failed.</p> <note> <p>Importing takes time. You must wait until the <code>status</code> of <code>latestDatasetImportJobRun</code> shows as ACTIVE before training a model using the dataset.</p> </note> <p> <b>Scheduling</b> </p> <p>To run the import job on a schedule, include the <code>datasetImportJobConfig</code> parameter. A new run of the import job is repeated at the frequency defined by its <code>importJobSchedule</code> key. You specify the frequency using a cron expression. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>. To stop the scheduled imports, call and set an empty string for the <code>importJobSchedule</code> key. The following is the AWS CLI shorthand syntax for importing the data every day at 12:00pm UTC:</p> <p> <code>--dataset-import-job-config importJobSchedule=\"cron(0 12 * * ? *)\"</code> </p> <p>When <code>datasetImportJobConfig</code> is not specified, you must call to create a new run. Each run uses a snapshot of the source data at the time of the call and is given a unique ARN.</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
     },
     "CreateEventTracker":{
       "name":"CreateEventTracker",
@@ -107,7 +107,7 @@
         {"shape":"ResourceNotFoundException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates an event tracker to send user interaction data to the <code>INTERACTIONS</code> dataset of the specified dataset group.</p> <p>You must specify an AWS Identity and Access Management (IAM) role that has <i>CloudWatchFullAccess</i> permission. The IAM role allows Amazon CloudWatch to calculate the clickthrough rate for the events.</p> <p>When you send event data using the API, you include your tracking ID. The tracking ID identifies the customer and authorizes the client to send the data.</p> <p>The event tracker can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul> <p>To get the status of the event tracker, call .</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
+      "documentation":"<p>Creates an event tracker that you use when sending event data to the specified dataset group using the API.</p> <p>When Amazon Personalize creates an event tracker, it also creates an <i>event-interactions</i> dataset in the dataset group associated with the event tracker. The event-interactions dataset stores the event data from the <code>Record</code> call. The contents of this dataset are not available to the user.</p> <note> <p>A dataset group can contain only one event-interactions dataset. You will get an error if you call <code>CreateEventTracker</code> using the same dataset group as an existing event tracker, even if you use a different event tracker name.</p> </note> <p>You must specify an AWS Identity and Access Management (IAM) role that has <i>CloudWatchFullAccess</i> permission. The IAM role allows Amazon CloudWatch to calculate the clickthrough rate for the events.</p> <p>When you send event data you include your tracking ID. The tracking ID identifies the customer and authorizes the customer to send the data.</p> <p>The event tracker can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING</p> </li> <li> <p>CREATE IN_PROGRESS</p> </li> <li> <p>ACTIVE</p> </li> <li> <p>CREATE FAILED</p> </li> </ul> <p>To get the status of the event tracker, call .</p> <note> <p>The event tracker must be in the ACTIVE state before using the tracking ID.</p> </note> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul>",
       "idempotent":true
     },
     "CreateFeatureExportJob":{
@@ -188,7 +188,7 @@
         {"shape":"ResourceNotFoundException"},
         {"shape":"LimitExceededException"}
       ],
-      "documentation":"<p>Creates a solution by training a model. After creating a solution, you check its accuracy by calling . When you are satisfied with the solution, you deploy it using . The campaign provides recommendations to a client through the API.</p> <p>To train a model, Amazon Personalize requires training data and a recipe. The training data comes from the dataset group that you provide in the request. A recipe specifies the training algorithm and a feature transformation. You can specify one of the predefined recipes provided by Amazon Personalize or provide a custom recipe. Alternatively, you can specify <code>performAutoML</code> and Amazon Personalize will analyze your data and select the optimum recipe for you.</p> <p>You must request the minimum provisioned number of recommendations (transactions) per second that Amazon Personalize will support by using the <code>minProvisionedTPS</code> parameter.</p> <p>A solution can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>To get the solution status, call .</p> <p>Once the create <code>status</code> shows as CREATE IN_PROGRESS, the <code>DescribeSolution</code> response includes the <code>latestSolutionVersion</code> object and its training <code>status</code>.</p> <p>Training is complete when the training <code>status</code> of the <code>latestSolutionVersion</code> shows as ACTIVE. Then you are ready to create a campaign by deploying the solution.</p> <note> <p>Before deploying the solution as a campaign, the following conditions must be met:</p> <ul> <li> <p>The create <code>status</code> of the solution is <code>ACTIVE</code>.</p> </li> <li> <p>At least one version of the solution has attained a training <code>status</code> of <code>ACTIVE</code>.</p> </li> </ul> </note> <p>When you create a campaign, you specify the <code>solutionArn</code> and, optionally, the <code>solutionVersionArn</code>. Include <code>solutionVersionArn</code> when you want the campaign to be based on a specific trained solution. When you omit <code>solutionVersionArn</code>, Amazon Personalize uses the most recent successful solution version.</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
+      "documentation":"<p>Creates a solution by training a model. After creating a solution, you check its accuracy by calling . When you are satisfied with the solution, you deploy it using . The campaign provides recommendations to a client through the API.</p> <p>To train a model, Amazon Personalize requires training data and a recipe. The training data comes from the dataset group that you provide in the request. A recipe specifies the training algorithm and a feature transformation. You can specify one of the predefined recipes provided by Amazon Personalize or provide a custom recipe. Alternatively, you can specify <code>performAutoML</code> and Amazon Personalize will analyze your data and select the optimum recipe for you.</p> <p>You must request the minimum provisioned number of recommendations (transactions) per second that Amazon Personalize will support by using the <code>minProvisionedTPS</code> parameter.</p> <p> <b>Status</b> </p> <p>A solution can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING &gt; CREATE IN_PROGRESS &gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING &gt; DELETE IN_PROGRESS &gt; DELETE FAILED</p> </li> </ul> <p>To get the <i>create</i> status of the solution, call providing the Amazon Resource Name (ARN) of the solution. Once the create status shows as CREATE IN_PROGRESS, the <code>DescribeSolution</code> response includes the <code>latestSolutionVersion</code> object and its <i>training</i> status. Training is complete when the training status of the <code>latestSolutionVersion</code> shows as ACTIVE. You can check just the training status by calling . If the training status shows as CREATE FAILED, the response includes a <code>failureReason</code> key, which describes why the job failed.</p> <note> <p>Before deploying the solution as a campaign, the following conditions must be met:</p> <ul> <li> <p>The create <code>status</code> of the solution is ACTIVE.</p> </li> <li> <p>At least one version of the solution has attained a training <code>status</code> of ACTIVE.</p> </li> </ul> </note> <p> <b>Scheduling</b> </p> <p>To run the training on a schedule, include the <code>solutionJobConfig</code> object and set its <code>retrainingMode</code> key to <code>MANUAL</code>. Training is repeated at the frequency defined by its <code>retrainSchedule</code> key. You specify the frequency using a cron expression. For more information, see <a href=\"https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html\">Cron Expressions</a> in the <i>Amazon CloudWatch User Guide</i>. To stop the scheduled trainings, call and set an empty string for the <code>retrainSchedule</code> key.</p> <p>To manually retrain the model, call the API.</p> <p class=\"title\"> <b>Related APIs</b> </p> <ul> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> <li> <p/> </li> </ul> <ul> <li> <p/> </li> <li> <p/> </li> </ul>"
     },
     "DeleteAlgorithm":{
       "name":"DeleteAlgorithm",
@@ -217,7 +217,7 @@
         {"shape":"ResourceNotFoundException"},
         {"shape":"ResourceInUseException"}
       ],
-      "documentation":"<p>Removes a campaign by deleting the solution deployment. The solutions that are part of the campaign are not deleted and can be redeployed when needed. A deleted campaign can no longer be specified in a request. For more information on campaigns, see .</p>",
+      "documentation":"<p>Removes a campaign by deleting the solution deployment. The solution that the campaign is based on is not deleted and can be redeployed when needed. A deleted campaign can no longer be specified in a request. For more information on campaigns, see .</p>",
       "idempotent":true
     },
     "DeleteDataset":{
@@ -367,7 +367,7 @@
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Describes the given campaign, including its status.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why. For more information on campaigns, see .</p>",
+      "documentation":"<p>Describes the given campaign, including its status.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why.</p> <p>For more information on campaigns, see .</p>",
       "idempotent":true
     },
     "DescribeCampaignUpdate":{
@@ -382,7 +382,7 @@
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Describes the given updated campaign.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, <code>failureReason</code> gives the reason why. For more information on campaigns, see .</p>",
+      "documentation":"<p>Describes the given updated campaign.</p> <p>A campaign can be in one of the following states:</p> <ul> <li> <p>CREATE PENDING =&gt; CREATE IN_PROGRESS =&gt; ACTIVE -or- CREATE FAILED</p> </li> <li> <p>DELETE PENDING =&gt; DELETE IN_PROGRESS =&gt; DELETE FAILED</p> </li> </ul> <p>When the <code>status</code> is <code>CREATE FAILED</code>, the response includes the <code>failureReason</code> key, which describes why.</p> <p>For more information on campaigns, see .</p>",
       "idempotent":true
     },
     "DescribeDataset":{
@@ -547,7 +547,7 @@
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Describes a solution version.</p>",
+      "documentation":"<p>Describes a specific version of a solution. For more information on solutions, see .</p>",
       "idempotent":true
     },
     "GetMetrics":{
@@ -680,7 +680,7 @@
       "errors":[
         {"shape":"InvalidNextTokenException"}
       ],
-      "documentation":"<p>Returns the list of available recipes. The response provides the properties for each recipe, including the Amazon Resource Name (ARN).</p>",
+      "documentation":"<p>Returns a list of available recipes. The response provides the properties for each recipe, including the recipe's Amazon Resource Name (ARN).</p> <p>The <code>recipeProvider</code> determines which recipes are included in the list. Valid values are:</p> <ul> <li> <p>Service - only predefined Amazon Personalize recipes</p> </li> <li> <p>BYOR - only Bring Your Own Recipes (customer defined)</p> </li> <li> <p>All (default) - both BYOR and Service recipes, with BYORs listed first</p> </li> </ul>",
       "idempotent":true
     },
     "ListSchemas":{
@@ -748,6 +748,7 @@
         "requestUri":"/"
       },
       "input":{"shape":"UpdateAlgorithmRequest"},
+      "output":{"shape":"UpdateAlgorithmResponse"},
       "errors":[
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
@@ -766,7 +767,7 @@
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Updates the campaign with the given solution or solution version. For more information on campaigns, see .</p>",
+      "documentation":"<p>Updates a campaign by deploying a new solution. You can also change the campaign's update mode.</p> <p>You can specify a specific solution version to be used for the campaign. When a specific version is not specified, Amazon Personalize uses the most recent solution version.</p> <p>To get the updated campaign status, call .</p> <note> <p>You must wait until the <code>status</code> of the updated campaign is <code>ACTIVE</code> before asking the campaign for recommendations.</p> </note> <p>For more information on campaigns, see .</p>",
       "idempotent":true
     },
     "UpdateDataset":{
@@ -776,6 +777,7 @@
         "requestUri":"/"
       },
       "input":{"shape":"UpdateDatasetRequest"},
+      "output":{"shape":"UpdateDatasetResponse"},
       "errors":[
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"},
@@ -805,6 +807,7 @@
         "requestUri":"/"
       },
       "input":{"shape":"UpdateFeatureTransformationRequest"},
+      "output":{"shape":"UpdateFeatureTransformationResponse"},
       "errors":[
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
@@ -818,11 +821,12 @@
         "requestUri":"/"
       },
       "input":{"shape":"UpdateRecipeRequest"},
+      "output":{"shape":"UpdateRecipeResponse"},
       "errors":[
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Updates a recipe created by the API.</p> <p>To get a listing of the current recipe's properties, call the API.</p>"
+      "documentation":"<p>Updates a recipe created by the API to use a new algorithm or feature transformation.</p> <p>To get a listing of the current recipe's properties, call the API.</p>"
     },
     "UpdateSolution":{
       "name":"UpdateSolution",
@@ -836,7 +840,7 @@
         {"shape":"InvalidInputException"},
         {"shape":"ResourceNotFoundException"}
       ],
-      "documentation":"<p>Updates an existing solution to use a different dataset group and/or solution configuration. The solution must be in the ACTIVE state. To get the training status, call the API. This API doesn't trigger retraining of the solution with the updated settings. To retrain the solution, call the API. For more information on solutions, see .</p>"
+      "documentation":"<p>Updates an existing solution to use a different solution configuration. The solution must be in the ACTIVE state. To get the training status, call the API. This API doesn't trigger retraining of the solution with the updated settings. To retrain the solution, call the API. For more information on solutions, see .</p>"
     }
   },
   "shapes":{
@@ -1136,11 +1140,11 @@
         },
         "roleArn":{
           "shape":"RoleArn",
-          "documentation":"<p>The ARN of the IAM role that has permissions to create the dataset group.</p>"
+          "documentation":"<p>The ARN of the IAM role that has permissions to access the KMS key. Supplying an IAM role is only valid when also specifying a KMS key.</p>"
         },
         "kmsKeyArn":{
           "shape":"KmsKeyArn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the KMS key used to encrypt the datasets.</p>"
+          "documentation":"<p>The Amazon Resource Name (ARN) of a KMS key used to encrypt the datasets.</p>"
         }
       }
     },
@@ -1168,7 +1172,7 @@
         },
         "datasetArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset that receives the imported data.</p>"
+          "documentation":"<p>The ARN of the dataset that receives the imported data.</p>"
         },
         "dataSource":{
           "shape":"DataSource",
@@ -1203,15 +1207,15 @@
       "members":{
         "schemaArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the schema to associate with the dataset.</p>"
+          "documentation":"<p>The ARN of the schema to associate with the dataset. The schema defines the dataset's fields.</p>"
         },
         "datasetGroupArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group that the new dataset is added to.</p>"
+          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset group to add the dataset to.</p>"
         },
         "datasetType":{
           "shape":"DatasetType",
-          "documentation":"<p>The type of dataset.</p> <p>One of the following values:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul>"
+          "documentation":"<p>The type of dataset.</p> <p>One of the following (case insensitive) values:</p> <ul> <li> <p>Interactions</p> </li> <li> <p>Items</p> </li> <li> <p>Users</p> </li> </ul>"
         }
       }
     },
@@ -1220,7 +1224,7 @@
       "members":{
         "datasetArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset.</p>"
+          "documentation":"<p>The ARN of the dataset.</p>"
         }
       }
     },
@@ -1265,7 +1269,8 @@
         "jobName",
         "featureTransformationArn",
         "datasetGroupArn",
-        "dataDestination"
+        "dataDestination",
+        "roleArn"
       ],
       "members":{
         "jobName":{
@@ -1404,7 +1409,7 @@
         },
         "performAutoML":{
           "shape":"PerformAutoML",
-          "documentation":"<p>The default is <code>false</code>. For this case, you must specify <code>recipeArn</code>.</p> <p>When set to <code>true</code>, Amazon Personalize analyzes your training data and selects the optimal recipe for you. In this case, you must omit <code>recipeArn</code>.</p>"
+          "documentation":"<p>Whether to perform automated machine learning (AutoML). The default is <code>false</code>. For this case, you must specify <code>recipeArn</code>.</p> <p>When set to <code>true</code>, Amazon Personalize analyzes your training data and selects the optimal recipe for you. In this case, you must omit <code>recipeArn</code>. This will lengthen the training process as compared to selecting a specific recipe.</p>"
         },
         "recipeArn":{
           "shape":"Arn",
@@ -1424,7 +1429,7 @@
         },
         "solutionConfig":{
           "shape":"SolutionConfig",
-          "documentation":"<p>The configuration to use with the solution. When <code>performAutoML</code> is true, Amazon Personalize only evaluates the <code>autoMLConfig</code> section of the solution configuration.</p>"
+          "documentation":"<p>The configuration to use with the solution. When <code>performAutoML</code> is set to true, Amazon Personalize only evaluates the <code>autoMLConfig</code> section, and <code>retrainingMode</code> and <code>retrainSchedule</code> parameters of the solution configuration.</p>"
         }
       }
     },
@@ -1460,7 +1465,7 @@
         },
         "datasetType":{
           "shape":"DatasetType",
-          "documentation":"<p>One of the following values:</p> <ul> <li> <p>INTERACTIONS</p> </li> <li> <p>ITEM</p> </li> <li> <p>USER</p> </li> </ul>"
+          "documentation":"<p>One of the following values:</p> <ul> <li> <p>Interactions</p> </li> <li> <p>Items</p> </li> <li> <p>Users</p> </li> </ul>"
         },
         "schemaArn":{
           "shape":"Arn",
@@ -1511,6 +1516,10 @@
         "lastUpdatedDateTime":{
           "shape":"Date",
           "documentation":"<p>The last update date and time (in Unix time) of the dataset group.</p>"
+        },
+        "failureReason":{
+          "shape":"FailureReason",
+          "documentation":"<p>If creating a dataset group fails, provides the reason why.</p>"
         }
       },
       "documentation":"<p>A dataset group is a collection of related datasets (Interactions, User, and Item). You create a dataset group by calling . You then create a dataset and add it to a dataset group by calling . The dataset group is used to create and train a solution by calling . A dataset group can contain only one of each type of dataset.</p> <p>You can specify an AWS Key Management Service (KMS) key to encrypt the datasets in the group.</p>"
@@ -2577,7 +2586,6 @@
     },
     "ListDatasetsRequest":{
       "type":"structure",
-      "required":["datasetGroupArn"],
       "members":{
         "datasetGroupArn":{
           "shape":"Arn",
@@ -2609,6 +2617,10 @@
     "ListEventTrackersRequest":{
       "type":"structure",
       "members":{
+        "datasetGroupArn":{
+          "shape":"Arn",
+          "documentation":"<p>The ARN of a dataset group used to filter the response.</p>"
+        },
         "nextToken":{
           "shape":"NextToken",
           "documentation":"<p>A token returned from the previous call to <code>ListEventTrackers</code> for getting the next set of event trackers (if they exist).</p>"
@@ -2622,7 +2634,7 @@
     "ListEventTrackersResponse":{
       "type":"structure",
       "members":{
-        "EventTrackers":{
+        "eventTrackers":{
           "shape":"EventTrackers",
           "documentation":"<p>A list of event trackers.</p>"
         },
@@ -2661,7 +2673,10 @@
     "ListRecipesRequest":{
       "type":"structure",
       "members":{
-        "recipeProvider":{"shape":"RecipeProvider"},
+        "recipeProvider":{
+          "shape":"RecipeProvider",
+          "documentation":"<p>The default is <code>All</code>.</p>"
+        },
         "nextToken":{
           "shape":"NextToken",
           "documentation":"<p>A token returned from the previous call to <code>ListRecipes</code> for getting the next set of recipes (if they exist).</p>"
@@ -2677,7 +2692,7 @@
       "members":{
         "recipes":{
           "shape":"Recipes",
-          "documentation":"<p>A list of the available recipes.</p>"
+          "documentation":"<p>The list of available recipes.</p>"
         },
         "nextToken":{
           "shape":"NextToken",
@@ -2701,7 +2716,7 @@
     "ListSchemasResponse":{
       "type":"structure",
       "members":{
-        "Schemas":{
+        "schemas":{
           "shape":"Schemas",
           "documentation":"<p>A list of schemas.</p>"
         },
@@ -2773,7 +2788,7 @@
     },
     "MaxResults":{
       "type":"integer",
-      "max":50,
+      "max":100,
       "min":1
     },
     "MetricName":{
@@ -2805,7 +2820,7 @@
     },
     "NextToken":{
       "type":"string",
-      "max":256
+      "max":1300
     },
     "ParameterName":{
       "type":"string",
@@ -3003,7 +3018,7 @@
       "members":{
         "eventValueThreshold":{
           "shape":"EventValueThreshold",
-          "documentation":"<p>Only events with a value greater than or equal to this threshold are treated as positive samples.</p>"
+          "documentation":"<p>Only events with a value greater than or equal to this threshold are used for training a model.</p>"
         },
         "retrainingMode":{
           "shape":"UpdateMode",
@@ -3140,6 +3155,15 @@
         }
       }
     },
+    "UpdateAlgorithmResponse":{
+      "type":"structure",
+      "members":{
+        "algorithmArn":{
+          "shape":"Arn",
+          "documentation":"<p>The same algorithm ARN as given in the request.</p>"
+        }
+      }
+    },
     "UpdateCampaignRequest":{
       "type":"structure",
       "required":["solutionArn"],
@@ -3167,7 +3191,7 @@
       "members":{
         "campaignVersionArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the updated campaign (version).</p>"
+          "documentation":"<p>The Amazon Resource Name (ARN) of the updated campaign.</p>"
         }
       }
     },
@@ -3194,16 +3218,13 @@
       "members":{
         "datasetImportJobArn":{
           "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the dataset import job.</p>"
+          "documentation":"<p>The same dataset import job ARN as given in the request.</p>"
         }
       }
     },
     "UpdateDatasetRequest":{
       "type":"structure",
-      "required":[
-        "datasetArn",
-        "schemaArn"
-      ],
+      "required":["datasetArn"],
       "members":{
         "datasetArn":{
           "shape":"Arn",
@@ -3212,6 +3233,15 @@
         "schemaArn":{
           "shape":"Arn",
           "documentation":"<p>The ARN of the new schema to associate with the dataset.</p>"
+        }
+      }
+    },
+    "UpdateDatasetResponse":{
+      "type":"structure",
+      "members":{
+        "datasetArn":{
+          "shape":"Arn",
+          "documentation":"<p>The same dataset ARN as given in the request.</p>"
         }
       }
     },
@@ -3226,6 +3256,15 @@
         "defaultParameters":{
           "shape":"FeaturizationParameters",
           "documentation":"<p>The default parameters used to update the feature transformation.</p>"
+        }
+      }
+    },
+    "UpdateFeatureTransformationResponse":{
+      "type":"structure",
+      "members":{
+        "featureTransformationArn":{
+          "shape":"Arn",
+          "documentation":"<p>The same feature transformation ARN as given in the request.</p>"
         }
       }
     },
@@ -3255,6 +3294,15 @@
         }
       }
     },
+    "UpdateRecipeResponse":{
+      "type":"structure",
+      "members":{
+        "recipeArn":{
+          "shape":"Arn",
+          "documentation":"<p>The same recipe ARN as given in the request.</p>"
+        }
+      }
+    },
     "UpdateSolutionRequest":{
       "type":"structure",
       "required":["solutionArn"],
@@ -3262,10 +3310,6 @@
         "solutionArn":{
           "shape":"Arn",
           "documentation":"<p>The ARN of the solution to be updated.</p>"
-        },
-        "datasetGroupArn":{
-          "shape":"Arn",
-          "documentation":"<p>The Amazon Resource Name (ARN) of the new dataset group.</p>"
         },
         "solutionConfig":{
           "shape":"SolutionConfig",
@@ -3278,7 +3322,7 @@
       "members":{
         "solutionArn":{
           "shape":"Arn",
-          "documentation":"<p>The ARN of the updated solution.</p>"
+          "documentation":"<p>The same solution ARN as given in the request.</p>"
         }
       }
     }
