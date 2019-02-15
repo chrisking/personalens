@@ -126,5 +126,5 @@ FILE_PATH_FIELD_DIRECTORY = os.path.join(BASE_DIR, "static", "img")
 STREAM_EVENTS = True
 
 # Personalize Configuration
-CAMPAIGN_ARN = "arn:aws:personalize:us-east-1:059124553121:campaign/Dj-click-campaign"
-TRACKING_ID = "4a7e200e-9de4-46ee-acb0-4494371d5670"
+CAMPAIGN_ARN = None
+TRACKING_ID = None
