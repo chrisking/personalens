@@ -11,7 +11,7 @@ have been followed in creating this project.
 2. [Loading the data into the database](docs/LoadingDataIntotheDatabase.md)
 3. [Loading the data into Amazon Personalize](docs/LoadingDataIntoAmazonPersonalize.md)
 4. [Integrating Amazon Personalize with Django](docs/IntegratingAmazonPersonalizeWithDjango.md)
-5. Integrating clickstream data
+5. [Integrating clickstream data](docs/IntegratingClickstreamData.md)
 
 ## Special Thanks
 

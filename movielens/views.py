@@ -2,6 +2,10 @@ from django.template import loader
 from django.http import HttpResponse
 from django.shortcuts import redirect
 import boto3
+import random
+import string
+import json
+import time
 
 from django.conf import settings
 
@@ -101,7 +105,7 @@ def user_browse(request, userid):
     return HttpResponse(template.render(context, request))
 
 
-def stream_event(user, movie):
+def stream_event(user, movie, event_ID=None):
     """
     stream_event takes in a user object as well as a item/movie and sends the data out
     as a click stream event to the campaign. This combined with the user's active
@@ -110,12 +114,36 @@ def stream_event(user, movie):
     :param movie: Item object
     :return: None
     """
-    # TODO CLICK EVENT GOES HERE
-    print("Clickstream Status: ", str(settings.STREAM_EVENTS))
-    if settings.STREAM_EVENTS:
-        print("Streaming event: ", str(user), str(movie))
-    else:
-        print("Not streaming events")
+
+    if settings.CAMPAIGN_ARN:
+        if settings.TRACKING_ID:
+            personalize_events = boto3.client('personalize-events')
+
+            # Generate Event ID:
+            if not event_ID:
+                event_ID = ''.join(random.choices(string.ascii_uppercase + string.digits, k=15))
+
+            event = {
+                "id": str(movie.movie_id),
+                "value": "clicked"
+            }
+            event_json = json.dumps(event)
+
+            personalize_events.record(
+                trackingId=settings.TRACKING_ID,
+                userId=str(user.user_id),
+                sessionId=str(user.session),
+                eventList=[
+                    {
+                        "eventId": event_ID,
+                        "sentAt": int(time.time()),
+                        "eventName": "click",
+                        "properties": event_json
+                    }
+                ]
+            )
+        else:
+            print("Not streaming events")
 
 
 def user_view_movie(request, userid, movieid):
