@@ -6,7 +6,7 @@ web application. It is expected to be deployed on a standalone workstation or de
 have been followed in creating this project.
 
 
-**Some corporate networks have restrictions on accessing items over port 8000, these will cause issues and you will need to resolve them with your IT group**
+**Some corporate networks have restrictions on accessing items over port 8000, these will cause issues and you will need to resolve them with your IT organization.**
 
 ## Overview
 
