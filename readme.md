@@ -5,6 +5,9 @@ This repository exists to be an educational tool for understanding how to integr
 web application. It is expected to be deployed on a standalone workstation or demo resource, none of the usual production ready proccesses 
 have been followed in creating this project.
 
+
+**Some corporate networks have restrictions on accessing items over port 8000, these will cause issues and you will need to resolve them with your IT group**
+
 ## Overview
 
 1. [Getting Started with Cloud9](docs/GettingStartedCloud9.md)
@@ -12,6 +15,7 @@ have been followed in creating this project.
 3. [Loading the data into Amazon Personalize](docs/LoadingDataIntoAmazonPersonalize.md)
 4. [Integrating Amazon Personalize with Django](docs/IntegratingAmazonPersonalizeWithDjango.md)
 5. [Integrating clickstream data](docs/IntegratingClickstreamData.md)
+
 
 ## Special Thanks
 
